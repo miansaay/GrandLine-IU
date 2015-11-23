@@ -1,6 +1,5 @@
 <head>
-	<script type= "text/javascript" src="Saboteur-IU.js"></script>
-	<style type="text/css" src="Sabouteur.IU.css"></style>
+	<style type="text/css" src="Sabouteur-IU.css"></style>
 </head>
 
 <template name = "main">
@@ -11,11 +10,9 @@
 </template>
 
 <template name = "play">
-	<canvas id='canvas1' width="1200" height="900"></canvas>
 	<!-- Prueba para chrome -->
-	<div style='display:none'>
-		<img id='tablero' src="images/tablero.jpg" width="626" height="417">
-	</div>
+	<img id='cartas' src="images/sprites.png" style="display:none">
+	<canvas id='canvas1' width="1200" height="900" style="background-image: url('images/tablero.jpg')"></canvas>
 </template>
 
 <template name = "footer">
