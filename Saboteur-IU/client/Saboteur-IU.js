@@ -1,23 +1,30 @@
-if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
+// Posiciones = new Meteor.Collection('cartas');
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
-    }
+Router.configure({
+  layoutTemplate: 'main'
+});
+
+
+if (Meteor.isClient) {  
+  Template.play.onRendered(function(){
+      var canvas = document.getElementById('canvas1');
+      var ctx = canvas.getContext('2d');
+
+      var newGame = new Game();
+      newGame.init(ctx);
   });
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
-  });
-}
+  Template.play.events({
+    'mousedown #canvas1': function(event){
+      var x = event.offsetX;
+      var y = event.offsetY;
+      console.log("has pulsado: [" + x + "," + y + "]");
+    },
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
+    'mouseup #canvas1': function(event){
+      var x = event.offsetX;
+      var y = event.offsetY;
+      console.log("has soltado en: [" + x + "," + y + "]");
+    }
   });
 }

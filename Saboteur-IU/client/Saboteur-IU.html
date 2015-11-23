@@ -1,14 +1,22 @@
 <head>
-  <title>Saboteur-IU</title>
+	<script type= "text/javascript" src="Saboteur-IU.js"></script>
+	<style type="text/css" src="Sabouteur.IU.css"></style>
 </head>
 
-<body>
-  <h1>Welcome to Meteor!</h1>
+<template name = "main">
+	<h1>Saboteur</h1>
+	{{> play}}
+	<hr />
+	{{>footer}}
+</template>
 
-  {{> hello}}
-</body>
+<template name = "play">
+	<canvas id='canvas1' width="1200" height="900"></canvas>
+	<div style='display:none'>
+		<img id='tablero' src="images/tablero.jpg" width = "626" height="427">
+	</div>
+</template>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name = "footer">
+	<p> Copyright &copy; Saboteur, 2015-2016</p>
 </template>
