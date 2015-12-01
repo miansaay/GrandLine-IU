@@ -1,40 +1,40 @@
 if (Meteor.isClient) {
-  
+
   //Meteor.subscribe('theMov');
-  
+
   Tracker.autorun(function () {
     if (Mov_card.findOne()!==undefined) {
       if (Mov_card.findOne({name:"ultima_pos"}).cartas!==0) {
         //code
-      
+
       //if ( $("#canvas1").length) {
         //$(document).ready(function() {
-        console.log("movimiento autorun")
-        
+        console.log("movimiento autorun");
+
         var movimiento = Mov_card.find().fetch();
-        console.log(movimiento)
-        
+        console.log(movimiento);
+
         var canvas = document.getElementById('canvas1');
         //console.log(canvas)
-        var ctx = canvas.getContext('2d');
-              
-        
-        
+        //var ctx = canvas.getContext('2d');
+
+
+
         //if (movimiento[0]!==0) {
            //mover1(movimiento);
            //console.log("entra")
         //}
-       
-      
+
+
       //});
       //}
       }
     }
-    
-   
+
+
   });
-  
-  
+
+
   Template.canvas.helpers({
     'mov_card': function(){
       return Mov_card.find();
@@ -43,21 +43,21 @@ if (Meteor.isClient) {
 
   Template.canvas.events({
     'click .Start': function () {
-      
+
         if (Mov_card.findOne()!==undefined) {
           id=Mov_card.findOne({name:"ultima_pos"})._id
-        
+
           Mov_card.remove(id)
         }
-        
-      
+
+
         Mov_card.insert({
           name:"ultima_pos",
           cartas:0
         });
-    
+
       init();
-      
+
     }
   });
 }
@@ -91,8 +91,8 @@ var TiposCartas = {
   DestinoNada1 : [3,3],
   DestinoNada2 : [2,3],
   DestinoPepita : [1,3],
-  Saboteador : [0,5], //definir más adelante en función de los colores
-  Minero : [0,4],//definir también en función de colores
+  Saboteador : [0,5], //definir mï¿½s adelante en funciï¿½n de los colores
+  Minero : [0,4],//definir tambiï¿½n en funciï¿½n de colores
   Pepitas1 : [7,2],
   Pepitas2 : [8,2],
   Pepitas3 : [9,2],
@@ -114,7 +114,7 @@ var TiposCartas = {
 }
 
 
- 
+
 
 function sleep(milliseconds) {
   var start = new Date().getTime();
@@ -126,33 +126,33 @@ function sleep(milliseconds) {
 }
 
 function mover1(mov){
-    
+
     var canvas = document.getElementById('canvas1');
     var ctx = canvas.getContext('2d');
-            
+
     if (mov) {
       var sx=mov[1].sx
       var sy=mov[1].sy
-      
+
       var pos_ini_x=mov[0][0]
       var pos_ini_y=mov[0][1]
       var pos_fin_x=mov[1].x
       var pos_fin_y=mov[1].y
-      
+
       var desp_x=Math.abs(pos_ini_x-pos_fin_x)
       var desp_y=Math.abs(pos_ini_y-pos_fin_y)
-      
+
       var dist=Math.sqrt(Math.pow(desp_x,2)+Math.pow(desp_y,2))
       var inc_x=desp_x/dist
       var inc_y=desp_y/dist
-      
+
       for(var i=0; i<dist; i++){
         if (pos_ini_x<pos_fin_x) {var pos_x=parseInt(pos_ini_x+(i*inc_x))}
         else{var pos_x=parseInt(pos_ini_x-(i*inc_x))}
-        
+
         if (pos_ini_y<pos_fin_y) {var pos_y=parseInt(pos_ini_y+(i*inc_y))}
         else{var pos_y=parseInt(pos_ini_y-(i*inc_y))}
-        
+
         ctx.drawImage(sprite,sx*wcard,sy*hcard,wcard,hcard,pos_x,pos_y,widht,height)
       }
     }
@@ -163,28 +163,28 @@ function mover1(mov){
 function init() {
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
-    
+
     var canvas1 = document.getElementById('canvas1');
     var ctx1 = canvas.getContext('2d');
 
     var distanciax;
     var distanciay;
     var pos_ini;
-    
+
     var tablero= new Image();
     tablero.src='https://image.freepik.com/foto-gratis/plank--de-madera--textura--madera_318727.jpg'
-    
+
     var sprite = new Image();
     sprite.src = 'sprites.png'
-    
+
     var wcard=90
     var hcard=110
     var widht=60;
     var height=90;
     var can_widht=$('#canvas').attr('width');
     var can_height= $('#canvas').attr('height');
-    
- 
+
+
     function card(x,y,sx,sy) {
           this.x = x;
           this.y = y;
@@ -228,45 +228,45 @@ function init() {
 
         window.requestAnimationFrame(draw);
     }
-    
-    
+
+
     this.mover = function(mov){
-        
+
         var canvas = document.getElementById('canvas1');
         var ctx = canvas.getContext('2d');
-                
+
         if (mov) {
           var sx=mov[1].sx
           var sy=mov[1].sy
-          
+
           var pos_ini_x=mov[0][0]
           var pos_ini_y=mov[0][1]
           var pos_fin_x=mov[1].x
           var pos_fin_y=mov[1].y
-          
+
           var desp_x=Math.abs(pos_ini_x-pos_fin_x)
           var desp_y=Math.abs(pos_ini_y-pos_fin_y)
-          
+
           var dist=Math.sqrt(Math.pow(desp_x,2)+Math.pow(desp_y,2))
           var inc_x=desp_x/dist
           var inc_y=desp_y/dist
-          
+
           for(var i=0; i<dist; i++){
             if (pos_ini_x<pos_fin_x) {var pos_x=parseInt(pos_ini_x+(i*inc_x))}
             else{var pos_x=parseInt(pos_ini_x-(i*inc_x))}
-            
+
             if (pos_ini_y<pos_fin_y) {var pos_y=parseInt(pos_ini_y+(i*inc_y))}
             else{var pos_y=parseInt(pos_ini_y-(i*inc_y))}
-            
+
             ctx.drawImage(sprite,sx*wcard,sy*hcard,wcard,hcard,pos_x,pos_y,widht,height)
           }
         }
     }
-    
-   
-    
+
+
+
     canvas.addEventListener('mousedown', function(e){
-      
+
         var canvas_pos = canvas.getBoundingClientRect() ;
 
         for (var i = 0; i < cartas.length; i++) {
@@ -274,7 +274,7 @@ function init() {
                 (cartas[i].y<(e.clientY -canvas_pos.top) && (cartas[i].y + height)>(e.clientY-canvas_pos.top))) {
                 cartas[i].selec=true;
                 distanciax=(e.clientX-canvas_pos.left-cartas[i].x);
-                distanciay=(e.clientY-canvas_pos.top-cartas[i].y);               
+                distanciay=(e.clientY-canvas_pos.top-cartas[i].y);
                 pos_ini=[cartas[i].x,cartas[i].y];
 
             }
@@ -282,31 +282,31 @@ function init() {
 
 
     });
-    
-    
-    
+
+
+
 
      canvas.addEventListener('mouseup', function(e){
-        
+
         var canvas_pos = canvas.getBoundingClientRect() ;
-        
-       
+
+
         for (var i = 0; i < cartas.length; i++) {
-            
+
             cartas[i].selec=false;
             if ((cartas[i].x<(e.clientX -canvas_pos.left) && (cartas[i].x + widht)>(e.clientX-canvas_pos.left))&&
                 (cartas[i].y<(e.clientY -canvas_pos.top) && (cartas[i].y + height)>(e.clientY-canvas_pos.top))) {
-              
+
                 cartas[i].x =widht*parseInt((e.clientX -canvas_pos.left)/((widht)));
                 cartas[i].y=height*parseInt((e.clientY -canvas_pos.top)/(height));
-                
-                
+
+
                 movimientos=[pos_ini,cartas[i]]
-                
+
                 id=Mov_card.findOne({name:"ultima_pos"})._id
                 Mov_card.update({_id : id},{$set: {cartas:movimientos}});
-                
-                
+
+
                 //mover(movimientos);
 
             }
@@ -314,7 +314,7 @@ function init() {
     });
 
     canvas.addEventListener('mousemove', function(e){
-        
+
         var canvas_pos = canvas.getBoundingClientRect() ;
 
         for (var i = 0; i < cartas.length; i++) {
@@ -322,7 +322,7 @@ function init() {
                 clear();
                 cartas[i].x = (e.clientX-canvas_pos.left)-distanciax;
                 cartas[i].y = (e.clientY-canvas_pos.top)-distanciay;
-               
+
             }
         }
     });
