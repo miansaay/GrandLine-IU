@@ -1,0 +1,19 @@
+Lo primero de todo es consultar las bases de datos de la lógica ; Colecciones de la lógica :
+Características (cartas que tiene cada jugador,puntuación,roll,mano,pico,vagoneta,farolillo)
+Partidas(listajugadores,mazogeneral,mazodestino,jugadorActivo,tablero,numeronda)
+Consultaremos la base de datos partidas para ver las partidas creadas y los correspondientes usuarios . Para cada usuario se creará un tablero .
+Lo primero comprobamos el usuario que esta activo : if(Meteor.userid()==Partidas.findOne({_id:partidaId}).jugadorActivo)
+Despues llamamos a ponerCarta(partidaId,jugadorId,carta,fila,columna,nameObjetivo*,objeto**) que devuelve :
+true : se puede colocar la carta
+false : no se puede colocar vuelvo 
+cartadestino: en caso de que sea cartadestino hay que ver las pepitas/rocas que tiene .
+Los parámetros de la función los tenemos que pasar nosotros en función del jugador que este jugando en ese momento . 
+Poner carta irá en función de la carta que tenga el jugador . Sabremos que carta tenemos que jugar en función de la mano del jugador que adquirimos accediendo a la 
+colección características .
+Por ejemplo si tenemos una que no se pone en el tablero (romper_vagoneta,arreglar_vagoneta) :
+Tendremos que acceder de nuevo a la base de datos características para ver si el jugador tiene la vagoneta arreglada o rota y se lo pintamos al usuario .
+Para estas cartas utilizamos 2 parámetros adicionales que son **objeto(romper o arreglar) y nameobjetivo(nombre del jugador al que va dirigida esa carta).
+Otro ejemplo : en caso de tener carta de derrumbamiento tendríamos que quitar la carta que este en las coordenadas indicadas por la función . 
+
+Después de esto invocaremos a la función de la lógica pasarTurno(partidaId,jugadorId,carta) devuelve true o false . En caso de ser true repetimos el proceso para ver que 
+jugador esta activo . Si es false continuamos con el turno de ese jugador 
