@@ -1,0 +1,145 @@
+
+<template name="main">
+    {{> navigation}}
+
+    <div id="content">
+        {{> yield "container"}}
+    </div>
+</template>
+
+
+<template name="home">
+    {{#if currentUser}}
+        {{> totalPartidas}}
+        {{> misPartidas}}
+        {{> actualPartida}}
+    {{/if}}
+</template>
+
+
+<template name="totalPartidas">
+    <div class="totalPartidas">
+        <h2>TOTAL DE PARTIDAS </h2>
+        {{#each listTotal}}
+            <li>
+                {{titulo}}: [{{listaJugadores}}]
+                {{#if auxTotal}}
+                    <button type="button" class="unirsePartida">Unirse a Partida!</button>
+                {{/if}}
+            </li>
+        {{/each}}
+        <div class="crearPartida">
+            <form>
+                <input type="text" name="titulo" placeholder="Titulo" required />
+                <input type="number" name="numJugadores" min="3" max="10" placeholder="Numero" required />
+                <button type="submit"> Crear Partida </button>
+            </form>
+        </div>
+    </div>
+</template>
+
+<template name="misPartidas">
+    <div class="misPartidas">
+        <h2> MIS PARTIDAS NO EMPEZADAS</h2>
+        {{#each listMias false}}
+            <li>
+                {{titulo}} : [{{listaJugadores}}]
+                {{#if auxMias}}
+                    <button type="button" class="empezarPartida">Empezar Partida!</button>
+                {{/if}}
+            </li>
+        {{/each}}
+
+        <h2> MIS PARTIDAS EMPEZADAS</h2>
+        {{#each listMias true}}
+            <li class="miPartida {{selectedPartida}}">
+                {{titulo}} : [{{listaJugadores}}]
+            </li>
+        {{/each}}
+    </div>
+</template>
+
+<!-- PARTIDA SELECCIONADA-->
+
+<template name="actualPartida">
+    <canvas id="canvas" width="1200" height="900"></canvas>
+    <div class="actualPartida">
+        {{#if renderThis}}
+            <h1>Titulo: {{partida.titulo}} : {{#if miTurno}} (ES MI TURNO) {{else}} (ESPERANDO) {{/if}}</h1>
+            <li>Jugadores: [{{partida.listaJugadores}}]</li>
+            <li>Mazo: {{mazoLength}}</li>
+            <li>Roll: {{carac.roll}}</li>
+            <li>Farolillo: {{#if carac.farolillo}} Arreglado {{else}} Roto {{/if}} </li>
+            <li>Pico: {{#if carac.pico}} Arreglado {{else}} Roto {{/if}} </li>
+            <li>Vagoneta: {{#if carac.vagoneta}} Arreglado {{else}} Roto {{/if}} </li>
+            <li>Puntos: {{carac.puntuacion}}</li>
+            <hr>
+
+            <form>
+                <select id="Mano">
+                    {{#each carac.mano}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+                <select id="Tipo">
+                        <option value="Poner">Poner</option>
+                        <option value="Descartar">Descartar</option>
+                </select>
+                <select id="Objetivo">
+                    <option value="none">none</option>
+                    {{#each partida.listaJugadores}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+                <select id="Objeto">
+                    <option value="default">Default</option>
+                    <option value="farolillo">Farolillo</option>
+                    <option value="vagoneta">Vagoneta</option>
+                    <option value="pico">Pico</option>
+                </select>
+                <input type="number" name="fila"  placeholder="Fila" required/>
+                <input type="number" name="columna"  placeholder="Columna" required/>
+                <button type="submit"> Submit</button>
+            </form>
+        {{/if}}
+    </div>
+</template>
+
+
+
+<!-- NAVIGATION-->
+
+<template name="register">
+    <div>
+        <h1>Register</h1>
+        <form class="register">
+            <input type="text" name="username" placeholder="Username" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit"> Register </button>
+        </form>
+    </div>
+</template>
+
+<template name="login">
+    <div>
+        <h1>Login</h1>
+        <form class="login">
+            <input type="text" name="username" placeholder="Username" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit"> Login </button>
+        </form>
+    </div>
+</template>
+
+<template name="navigation">
+    <ul>
+        <li><a href="{{pathFor route='home'}}">Home</a></li>
+        {{#if currentUser}}
+            <li><a href="#" class="logout">Logout</a></li>
+            <li><a href="#">{{currentUser.username}}</a></li>
+        {{else}}
+            <li><a href="{{pathFor route='register'}}">Register</a></li>
+            <li><a href="{{pathFor route='login'}}">Login</a></li>
+        {{/if}}
+    </ul>
+</template>
