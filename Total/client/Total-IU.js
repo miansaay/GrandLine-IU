@@ -69,6 +69,22 @@ render = function() {
     var can_widht=$('#canvas').attr('width');
     var can_height= $('#canvas').attr('height');
 
+    //Canvas para las puntuaciones
+    var canvas2 = document.getElementById('canvas2');
+    var ctx2 = canvas.getContext('2d');
+    var tablero2= new Image();
+    tablero2.src='tablero.jpg'
+    var can_widht2=$('#canvas2').attr('width');
+    var can_height2= $('#canvas2').attr('height');
+
+
+    //Canvas para las puntuaciones
+    var canvas2 = document.getElementById('canvas2');
+    var ctx2 = canvas2.getContext('2d');
+    var tablero2= new Image();
+    tablero2.src='tablero.jpg'
+    var can_widht2=$('#canvas2').attr('width');
+    var can_height2= $('#canvas2').attr('height');
 
     function card(x,y,sx,sy) {
           this.x = x*widht;
@@ -88,20 +104,92 @@ render = function() {
     function clear() {
         ctx.fillStyle = 'rgba(255,255,255,0.3)';
         ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx2.fillStyle = 'rgba(255,255,255,0.3)';
+        ctx2.fillRect(0,0,canvas2.width,canvas2.height);
     }
 
     function draw() {
 
         clear();
 
-
         ctx.drawImage(tablero,0,0,can_widht,can_height);
+
+        ctx2.drawImage(tablero,0,0,can_widht2,can_height2);
 
         for (var i = 0; i < cartas_mano.length; i++) {
             cartas_mano[i].draw(sprite,ctx);
         }
 
         //window.requestAnimationFrame(draw);
+        
+        //Título
+        ctx2.fillStyle = "rgb(30, 144, 255)";
+	      ctx2.font = "bold 27px  Fantasía";
+	      ctx2.textAlign = "left";
+	      ctx2.textBaseline = "top";
+        ctx2.fillText("Título: ", 32, 32);
+
+        //Jugadores
+        ctx2.fillStyle = "rgb(30, 144, 255)";
+	      ctx2.font = "24px  Fantasía";
+	      ctx2.textAlign = "left";
+	      ctx2.textBaseline = "top";
+        ctx2.fillText("Jugadores: ", 32, 80);
+
+        //Mazo
+        ctx2.fillStyle = "rgb(30, 144, 255)";
+	      ctx2.font = "24px  Fantasía";
+	      ctx2.textAlign = "left";
+	      ctx2.textBaseline = "top";
+        ctx2.fillText("Mazo: ", 32, 110);
+
+        //Roll
+        ctx2.fillStyle = "rgb(30, 144, 255)";
+        ctx2.font = "24px  Fantasía";
+        ctx2.textAlign = "left";
+        ctx2.textBaseline = "top";
+        ctx2.fillText("Roll: ", 32, 140);
+
+        //Farolillo
+        ctx2.fillStyle = "rgb(30, 144, 255)";
+        ctx2.font = "24px  Fantasía";
+        ctx2.textAlign = "left";
+        ctx2.textBaseline = "top";
+        ctx2.fillText("Farolillo: ", 32, 170);
+
+        //Pico
+        ctx2.fillStyle = "rgb(30, 144, 255)";
+        ctx2.font = "24px  Fantasía";
+        ctx2.textAlign = "left";
+        ctx2.textBaseline = "top";
+        ctx2.fillText("Pico: ", 32, 200);
+
+        //Vagoneta
+        ctx2.fillStyle = "rgb(30, 144, 255)";
+        ctx2.font = "24px  Fantasía";
+        ctx2.textAlign = "left";
+        ctx2.textBaseline = "top";
+        ctx2.fillText("Vagoneta: ", 32, 230);
+
+        //Puntos
+        ctx2.fillStyle = "rgb(30, 144, 255)";
+        ctx2.font = "24px  Fantasía";
+        ctx2.textAlign = "left";
+        ctx2.textBaseline = "top";
+        ctx2.fillText("Puntos: ", 32, 260);
+
+        /**console.log(Template.actualPartida.helpers.renderThis);
+        if (Template.actualPartida.helpers.renderThis){
+          console.log(Template.actualPartida.helpers.miTurno);
+          if (Template.actualPartida.helpers.miTurno) {
+  	          ctx2.fillText("Título: " + Template.actualPartida.helpers.partida.titulo +  ":" + " (ES MI TURNO)", 32, 32);
+          } else {
+              ctx2.fillText("Título: " + Template.actualPartida.helpers.partida.titulo + ":" + " (ESPERANDO)", 32, 32);
+          }
+          //console.log(Template.actualPartida.helpers.partida.listaJugadores);
+          //ctx2.fillText("Jugadores: " + Template.actualPartida.helpers.partida, 360, 32);
+        }*/
+
     }
 
 
