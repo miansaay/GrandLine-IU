@@ -121,75 +121,96 @@ render = function() {
         }
 
         //window.requestAnimationFrame(draw);
-        
+
         //Título
-        ctx2.fillStyle = "rgb(30, 144, 255)";
-	      ctx2.font = "bold 27px  Fantasía";
-	      ctx2.textAlign = "left";
-	      ctx2.textBaseline = "top";
-        ctx2.fillText("Título: ", 32, 32);
-
-        //Jugadores
-        ctx2.fillStyle = "rgb(30, 144, 255)";
-	      ctx2.font = "24px  Fantasía";
-	      ctx2.textAlign = "left";
-	      ctx2.textBaseline = "top";
-        ctx2.fillText("Jugadores: ", 32, 80);
-
-        //Mazo
-        ctx2.fillStyle = "rgb(30, 144, 255)";
-	      ctx2.font = "24px  Fantasía";
-	      ctx2.textAlign = "left";
-	      ctx2.textBaseline = "top";
-        ctx2.fillText("Mazo: ", 32, 110);
-
-        //Roll
-        ctx2.fillStyle = "rgb(30, 144, 255)";
-        ctx2.font = "24px  Fantasía";
-        ctx2.textAlign = "left";
-        ctx2.textBaseline = "top";
-        ctx2.fillText("Roll: ", 32, 140);
-
-        //Farolillo
-        ctx2.fillStyle = "rgb(30, 144, 255)";
-        ctx2.font = "24px  Fantasía";
-        ctx2.textAlign = "left";
-        ctx2.textBaseline = "top";
-        ctx2.fillText("Farolillo: ", 32, 170);
-
-        //Pico
-        ctx2.fillStyle = "rgb(30, 144, 255)";
-        ctx2.font = "24px  Fantasía";
-        ctx2.textAlign = "left";
-        ctx2.textBaseline = "top";
-        ctx2.fillText("Pico: ", 32, 200);
-
-        //Vagoneta
-        ctx2.fillStyle = "rgb(30, 144, 255)";
-        ctx2.font = "24px  Fantasía";
-        ctx2.textAlign = "left";
-        ctx2.textBaseline = "top";
-        ctx2.fillText("Vagoneta: ", 32, 230);
-
-        //Puntos
-        ctx2.fillStyle = "rgb(30, 144, 255)";
-        ctx2.font = "24px  Fantasía";
-        ctx2.textAlign = "left";
-        ctx2.textBaseline = "top";
-        ctx2.fillText("Puntos: ", 32, 260);
-
-        /**console.log(Template.actualPartida.helpers.renderThis);
-        if (Template.actualPartida.helpers.renderThis){
-          console.log(Template.actualPartida.helpers.miTurno);
-          if (Template.actualPartida.helpers.miTurno) {
-  	          ctx2.fillText("Título: " + Template.actualPartida.helpers.partida.titulo +  ":" + " (ES MI TURNO)", 32, 32);
-          } else {
-              ctx2.fillText("Título: " + Template.actualPartida.helpers.partida.titulo + ":" + " (ESPERANDO)", 32, 32);
+        if (rendThis()){
+          if(myTurno()){
+            ctx2.fillStyle = "rgb(30, 144, 255)";
+    	      ctx2.font = "bold 27px  Fantasía";
+    	      ctx2.textAlign = "left";
+    	      ctx2.textBaseline = "top";
+            ctx2.fillText("Título: " + partd().titulo + ": (ES MI TURNO)", 32, 32);
+          } else  {
+            ctx2.fillStyle = "rgb(30, 144, 255)";
+    	      ctx2.font = "bold 27px  Fantasía";
+    	      ctx2.textAlign = "left";
+    	      ctx2.textBaseline = "top";
+            ctx2.fillText("Título: " + partd().titulo + ": (ESPERANDO)", 32, 32);
           }
-          //console.log(Template.actualPartida.helpers.partida.listaJugadores);
-          //ctx2.fillText("Jugadores: " + Template.actualPartida.helpers.partida, 360, 32);
-        }*/
 
+           //Jugadores
+            ctx2.fillStyle = "rgb(30, 144, 255)";
+    	      ctx2.font = "24px  Fantasía";
+    	      ctx2.textAlign = "left";
+    	      ctx2.textBaseline = "top";
+            ctx2.fillText("Jugadores: " + partd().listaJugadores, 32, 80);
+
+            //Mazo
+            ctx2.fillStyle = "rgb(30, 144, 255)";
+    	      ctx2.font = "24px  Fantasía";
+    	      ctx2.textAlign = "left";
+    	      ctx2.textBaseline = "top";
+            ctx2.fillText("Mazo: " + mazLength(), 32, 110);
+
+            //Roll
+            ctx2.fillStyle = "rgb(30, 144, 255)";
+            ctx2.font = "24px  Fantasía";
+            ctx2.textAlign = "left";
+            ctx2.textBaseline = "top";
+            ctx2.fillText("Roll: " + caracteristicas().roll, 32, 140);
+
+            //Farolillo
+            if (caracteristicas().farolillo){
+                ctx2.fillStyle = "rgb(30, 144, 255)";
+                ctx2.font = "24px  Fantasía";
+                ctx2.textAlign = "left";
+                ctx2.textBaseline = "top";
+                ctx2.fillText("Farolillo: Arreglado", 32, 170);
+            } else {
+                ctx2.fillStyle = "rgb(30, 144, 255)";
+                ctx2.font = "24px  Fantasía";
+                ctx2.textAlign = "left";
+                ctx2.textBaseline = "top";
+                ctx2.fillText("Farolillo: Roto", 32, 170);
+            }
+
+            //Pico
+            if (caracteristicas().pico){
+                ctx2.fillStyle = "rgb(30, 144, 255)";
+                ctx2.font = "24px  Fantasía";
+                ctx2.textAlign = "left";
+                ctx2.textBaseline = "top";
+                ctx2.fillText("Pico: Arreglado", 32, 200);
+            } else {
+              ctx2.fillStyle = "rgb(30, 144, 255)";
+              ctx2.font = "24px  Fantasía";
+              ctx2.textAlign = "left";
+              ctx2.textBaseline = "top";
+              ctx2.fillText("Pico: Roto", 32, 200);
+            }
+
+            //Vagoneta
+            if (caracteristicas().vagoneta){
+                ctx2.fillStyle = "rgb(30, 144, 255)";
+                ctx2.font = "24px  Fantasía";
+                ctx2.textAlign = "left";
+                ctx2.textBaseline = "top";
+                ctx2.fillText("Vagoneta: Arreglado", 32, 230);
+            } else {
+              ctx2.fillStyle = "rgb(30, 144, 255)";
+              ctx2.font = "24px  Fantasía";
+              ctx2.textAlign = "left";
+              ctx2.textBaseline = "top";
+              ctx2.fillText("Vagoneta: Roto", 32, 230);
+            }
+
+            //Puntos
+            ctx2.fillStyle = "rgb(30, 144, 255)";
+            ctx2.font = "24px  Fantasía";
+            ctx2.textAlign = "left";
+            ctx2.textBaseline = "top";
+            ctx2.fillText("Puntos: " + caracteristicas().puntuacion, 32, 260);
+        }
     }
 
 

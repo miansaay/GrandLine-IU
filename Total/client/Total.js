@@ -92,33 +92,74 @@ Template.misPartidas.events({
 });
 
 // PARTIDA SELECCIONADA
+rendThis = function() {
+  if(Partidas.find().count() > 0 && Session.get("selectedPartida")){
+    return true;
+  }
+  return false;
+}
+
+myTurno = function(){
+  var turno = Partidas.findOne({_id: Session.get("selectedPartida")}).jugadorActivo;
+  if(turno == Meteor.userId()){
+    return true;
+  }
+  return false;
+
+}
+partd = function(){
+  return Partidas.findOne({_id: Session.get("selectedPartida")});
+}
+
+mazLength = function(){
+  return Partidas.findOne({_id: Session.get("selectedPartida")}).mazoGeneral.length;
+}
+
+caracteristicas = function(){
+    return Caracteristicas.findOne({partidaId: Session.get("selectedPartida"),jugadorId: Meteor.userId()});
+}
 
 Template.actualPartida.helpers({
-    renderThis: function () {
+    /*renderThis: function () {
       if(Partidas.find().count() > 0 && Session.get("selectedPartida")){
         return true;
       }
       return false;
+    },*/
+    renderThis: function() {
+      return rendThis();
     },
 
-    miTurno: function () {
+    /*miTurno: function () {
       var turno = Partidas.findOne({_id: Session.get("selectedPartida")}).jugadorActivo;
       if(turno == Meteor.userId()){
         return true;
       }
       return false;
+    },*/
+    miTurno: function(){
+        return myTurno();
     },
 
-    partida: function () {
+    /*partida: function () {
       return Partidas.findOne({_id: Session.get("selectedPartida")});
+    },*/
+    partida: function(){
+        return partd();
     },
 
-    mazoLength: function () {
+    /*mazoLength: function () {
       return Partidas.findOne({_id: Session.get("selectedPartida")}).mazoGeneral.length;
+    },*/
+    mazoLength: function(){
+        return mazLength();
     },
 
-    carac: function () {
+    /*carac: function () {
       return Caracteristicas.findOne({partidaId: Session.get("selectedPartida"),jugadorId: Meteor.userId()});
+    },*/
+    carac: function(){
+      return caracteristicas();
     },
 });
 
