@@ -211,6 +211,7 @@ render = function() {
             ctx2.textBaseline = "top";
             ctx2.fillText("Puntos: " + caracteristicas().puntuacion, 32, 260);
         }
+            window.requestAnimationFrame(draw);
     }
 
 
