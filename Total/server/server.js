@@ -35,13 +35,13 @@ var actualizarTurno = function(partidaId){
     var index = (p.listaJugadores.indexOf(Meteor.users.findOne({_id: jugadorId}).username) + 1) % p.numJugadores;
     var turno = Meteor.users.findOne({username: p.listaJugadores[index]})._id;
     Partidas.update({_id: partidaId}, {$set:{jugadorActivo: turno}});
-
 }
 
 
 Meteor.startup(function () {
     // code to run on server at startup
     Meteor.publish("partidas", function () {
+    	console.log("partidasss: ");
         return Partidas.find();
     });
 
@@ -64,20 +64,28 @@ Meteor.startup(function () {
                   listaJugadores: [username],
                   empezada: false
                 });
-                
             }
         },
 
         unirsePartida: function(partidaId,username){
-            var p = Partidas.findOne({_id: partidaId});
+        	var p = Partidas.findOne({_id: partidaId});
             if (p.listaJugadores.length < p.numJugadores){
                 Partidas.update({_id: partidaId}, {$push: {listaJugadores: username}});
             }
         },
 
+        salirsePartida: function(partidaId, username){
+        	Partidas.update({_id: partidaId}, {$pull: {listaJugadores: username}});
+     		p = Partidas.findOne({_id: partidaId});
+     		if(p.listaJugadores.length === 0){
+//     			console.log("NO HAY JUGADORES");
+     			// ELIMINO PARTIDA
+     			Partidas.remove({_id: partidaId});
+     		}
+        },
+
         empezarPartida: function(partidaId){
             //Comienzo de Partida, Crear Mazo, Crear Tablero, Poner Turno y Propiedades de Jugadores
-            
             configurarPartida(partidaId);
         },
 

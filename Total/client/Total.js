@@ -30,11 +30,15 @@ Template.totalPartidas.helpers({
     },
 
     auxTotal: function () {
+      console.log(Meteor.user().username);
       if (this.listaJugadores.indexOf(Meteor.user().username) == -1){
+        console.log(true);
         return true;
       }
+      console.log(false);
       return false;
     },
+
 });
 
 Template.totalPartidas.events({
@@ -52,6 +56,12 @@ Template.totalPartidas.events({
     Meteor.call("unirsePartida", this._id, Meteor.user().username);
   },
 
+  'click .salirPartida': function(event){
+    event.preventDefault();
+    Meteor.call("salirsePartida", this._id, Meteor.user().username);
+//    console.log("SALGO DE LA PARTIDA");
+  }
+
 });
 
 // MIS PARTIDAS
@@ -62,6 +72,9 @@ Template.misPartidas.helpers({
     },
 
     auxMias: function () {
+      console.log(this.numJugadores);
+      console.log(this.listaJugadores.length);
+      console.log(Meteor.user().username);
       return this.listaJugadores[0] == Meteor.user().username && this.numJugadores == this.listaJugadores.length && !this.empezada
     },
     selectedPartida: function () {
