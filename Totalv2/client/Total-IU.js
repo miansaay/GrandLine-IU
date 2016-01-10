@@ -1,84 +1,24 @@
 
+//cartita = new carta(1,0,TiposCartas["Camino1"][0],TiposCartas["Camino1"][1],"Camino1");
+
+//console.log(cartita);
+
 
 render = function() {
 
-  //Diccionario de cartas
-    var TiposCartas = {
-      Camino1 : [4,1],
-      Camino2 : [5,1], //5,1 inversa,Tenemos que buscar como rotar la carta
-      Camino3 : [9,0],
-      Camino4 : [2,1],
-      Camino5 : [3,1],
-      Camino6 : [2,1], //2,1 inversa
-      Camino7 : [0,1],
-      SinCamino1 : [4,0],//rotar
-      SinCamino2 : [5,0],//rotar
-      SinCamino3 : [0,0],//no es la que corresponde
-      SinCamino4 : [0,0],
-      SinCamino5 : [1,0],
-      SinCamino6 : [4,0],//rotar
-      SinCamino7 : [2,0],
-      SinCamino8 : [8,0],
-      SinCamino9 : [7,0],
-      ComienzoEscalera : [0,3],
-      DestinoNada1 : [3,3],
-      DestinoNada2 : [2,3],
-      DestinoPepita : [1,3],
-      Saboteador : [0,5], //definir m�s adelante en funci�n de los colores
-      Minero : [0,4],//definir tambi�n en funci�n de colores
-      Pepitas1 : [7,2],
-      Pepitas2 : [8,2],
-      Pepitas3 : [9,2],
-      RomperPico : [4,2],
-      RomperVagoneta :[6,2],
-      RomperFarolillo : [5,2],
-      ArreglarVagoneta : [7,1],
-      ArreglarPico : [8,1],
-      ArreglarFarolillo : [9,1],
-      ArreglarFaro_Vagon : [0,2],
-      ArreglarFaro_Pico : [1,2],
-      ArreglarVagon_Pico : [2,2],
-      Mapa : [6,1],
-      Derrumbamiento : [1,3],
-      CRevesCamino : [4,3],
-      CRevesDestino : [5,3],
-      CRevesPepita : [7,3],
-      CRevesPersonaje : [6,3],
-    }
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
 
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
-
-    var canvas1 = document.getElementById('canvas1');
-    var ctx1 = canvas.getContext('2d');
+  var canvas1 = document.getElementById('canvas1');
+  var ctx1 = canvas.getContext('2d');
 
     var distanciax;
     var distanciay;
     var ult_pos;
     var pos_ini;
 
-    var tablero= new Image();
-    //tablero.src='https://image.freepik.com/foto-gratis/plank--de-madera--textura--madera_318727.jpg'
-    tablero.src='tablero.jpg'
-
-    var sprite = new Image();
-    sprite.src = 'sprites.png'
-
-    var wcard=90
-    var hcard=110
-    var widht=60;
-    var height=90;
     var can_widht=$('#canvas').attr('width');
     var can_height= $('#canvas').attr('height');
-
-    //Canvas para las puntuaciones
-    var canvas2 = document.getElementById('canvas2');
-    var ctx2 = canvas.getContext('2d');
-    var tablero2= new Image();
-    tablero2.src='tablero.jpg'
-    var can_widht2=$('#canvas2').attr('width');
-    var can_height2= $('#canvas2').attr('height');
-
 
     //Canvas para las puntuaciones
     var canvas2 = document.getElementById('canvas2');
@@ -87,9 +27,7 @@ render = function() {
     tablero2.src='tablero.jpg'
     var can_widht2=$('#canvas2').attr('width');
     var can_height2= $('#canvas2').attr('height');
-
-    
-    
+     
     function card(x,y,sx,sy,nombre) {
           this.x = x*widht;
           this.y = y*height;
@@ -134,7 +72,7 @@ render = function() {
       
       Posibles_cell=Partidas.findOne({_id: Session.get("selectedPartida")}).tablero.posiblesCells;
       
-      console.log(Posibles_cell)
+//      console.log(Posibles_cell)
     
       for (var i = 0; i < Posibles_cell.length; i++) {
 	  cell=Posibles_cell[i].split(",")
@@ -336,38 +274,30 @@ render = function() {
     
     
     var mousedown = function (e) {
-	turno = Partidas.findOne({_id: Session.get("selectedPartida")}).jugadorActivo;
-	id = Meteor.userId()
+    	turno = Partidas.findOne({_id: Session.get("selectedPartida")}).jugadorActivo;
+    	id = Meteor.userId();
   
-  
-	if (id==turno) {
-  
-	  var canvas_pos = canvas.getBoundingClientRect() ;
-  
-	  for (var i = 0; i < cartas_mano.length; i++) {
-	    if ((cartas_mano[i].x<(e.clientX -canvas_pos.left) && (cartas_mano[i].x + widht)>(e.clientX-canvas_pos.left))&&
-		(cartas_mano[i].y<(e.clientY -canvas_pos.top) && (cartas_mano[i].y + height)>(e.clientY-canvas_pos.top))) {
-		cartas_mano[i].selec=true;
-		distanciax=(e.clientX-canvas_pos.left-cartas_mano[i].x);
-		distanciay=(e.clientY-canvas_pos.top-cartas_mano[i].y);
-	    }
-	  }
-	}
+    	if (id==turno) {
+      
+    	  var canvas_pos = canvas.getBoundingClientRect() ;
+      
+    	  for (var i = 0; i < cartas_mano.length; i++) {
+    	    if ((cartas_mano[i].x<(e.clientX -canvas_pos.left) && (cartas_mano[i].x + widht)>(e.clientX-canvas_pos.left))&&
+        		(cartas_mano[i].y<(e.clientY -canvas_pos.top) && (cartas_mano[i].y + height)>(e.clientY-canvas_pos.top))) {
+          		cartas_mano[i].selec=true;
+          		distanciax=(e.clientX-canvas_pos.left-cartas_mano[i].x);
+          		distanciay=(e.clientY-canvas_pos.top-cartas_mano[i].y);
+    	    }
+    	  }
+    	}
     }
 
-    canvas.addEventListener('mousedown',mousedown,false);
-
-
-
-
     var mouseup = function (e) {
-	
-	turno = Partidas.findOne({_id: Session.get("selectedPartida")}).jugadorActivo;
-        id = Meteor.userId()
+	    turno = Partidas.findOne({_id: Session.get("selectedPartida")}).jugadorActivo;
+      id = Meteor.userId()
 
-        if (id==turno) {
-
-          var canvas_pos = canvas.getBoundingClientRect() ;
+      if (id==turno) {
+        var canvas_pos = canvas.getBoundingClientRect() ;
 
           for (var i = 0; i < cartas_mano.length; i++) {
 
@@ -398,8 +328,8 @@ render = function() {
 		var fila = ((cartas_mano[i].y)/(height))+11;
 		var columna = (cartas_mano[i].x)/(widht);
 		
-		console.log("RATONNNNNN")
-		console.log(carta)
+//		console.log("RATONNNNNN")
+//		console.log(carta)
 		
 		if(tipo == "Poner"){
 		  posible=Meteor.call("ponerCarta", partidaId, Meteor.userId(),carta,parseInt(fila),parseInt(columna),objetivo,objeto);
@@ -407,6 +337,7 @@ render = function() {
 		  canvas.removeEventListener('mousemove',mousemove,false);
 		  canvas.removeEventListener('mousedown',mousedown,false);
 		  canvas.removeEventListener('mouseup',mouseup,false);
+      console.log("BORRADOS EVENTOS");
 		  
 		}else{
 		  Meteor.call("pasarTurno", partidaId, Meteor.userId(),carta);
@@ -418,15 +349,10 @@ render = function() {
           }
         }
     }
-
-    canvas.addEventListener('mouseup',mouseup,false);
-     
-     
-     
-     
+   
     var mousemove = function (e) {
         turno = Partidas.findOne({_id: Session.get("selectedPartida")}).jugadorActivo;
-        id = Meteor.userId()
+        id = Meteor.userId();
 
         if (id==turno) {
 
@@ -450,21 +376,25 @@ render = function() {
         }
     };
 
-    canvas.addEventListener('mousemove',mousemove,false);
+    Tracker.autorun(function(){
+      canvas.addEventListener('mouseup',mouseup,false);
+      canvas.addEventListener('mousemove',mousemove,false);
+      canvas.addEventListener('mousedown',mousedown,false);
 
+      console.log("HOLA CARA COLA");
 
-
-    cartas_mano=[]
-    cartas_db=Caracteristicas.findOne({partidaId: Session.get("selectedPartida"),jugadorId: Meteor.userId()}).mano;
+      cartas_mano=[]
+      cartas_db=Caracteristicas.findOne({partidaId: Session.get("selectedPartida"),jugadorId: Meteor.userId()}).mano;
+      
     
+      for (var i = 0; i < cartas_db.length; i++) {
+        nombre=String(cartas_db[i])
+        carta = new card((i+1),8,TiposCartas[nombre][0],TiposCartas[nombre][1],nombre)
+        cartas_mano.push(carta);
+      }
     
-    for (var i = 0; i < cartas_db.length; i++) {
-      nombre=String(cartas_db[i])
-      carta = new card((i+1),8,TiposCartas[nombre][0],TiposCartas[nombre][1],nombre)
-      cartas_mano.push(carta);
-    }
-    
-    console.log(Caracteristicas.findOne({partidaId: Session.get("selectedPartida"),jugadorId: Meteor.userId()}).mano)
-    rend_Carac();
-    draw();
+//      console.log(Caracteristicas.findOne({partidaId: Session.get("selectedPartida"),jugadorId: Meteor.userId()}).mano)
+      rend_Carac();
+      draw();
+    });
 }

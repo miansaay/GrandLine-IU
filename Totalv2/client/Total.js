@@ -3,9 +3,6 @@ Meteor.subscribe("caracteristicas");
 Meteor.subscribe("mov_card");
 
 
-
-
-
 $.validator.setDefaults({
   rules: {
     username: {required: true},
