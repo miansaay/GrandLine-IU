@@ -1,0 +1,25 @@
+/* CSS declarations go here */
+
+#content div{
+	display: inline-block;
+	border: 1px solid black;
+	float: left;
+	width: 25%;
+	height: 500px;
+	overflow: hidden;
+}
+
+.crearPartida{
+	position: relative;
+	width: 100% !important;
+	height: 21px !important;
+	display: block;
+}
+
+.actualPartida{
+	width: 25% !important;
+}
+
+.selected{
+	background-color: blue;
+}
