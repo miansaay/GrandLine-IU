@@ -1,0 +1,198 @@
+<!-- MAIN PAGE-->
+
+<template name="main">
+	<div class="navigation">
+		{{> navigation}}
+	</div>
+
+	<div class="container">
+		{{> yield "container"}}
+
+	</div>
+
+	<div class="footer">
+		{{> footer}}
+	</div>
+
+	<div class="total-board" hidden>
+	</div>
+	<div class="match-board" hidden>
+		<canvas id="canvas"></canvas>
+	</div>
+</template>
+
+
+<!-- HOME PAGE-->
+
+<template name="home">
+
+	{{> list_top}}
+
+	{{#if currentUser}}
+		{{> tab_board}}
+	{{/if}}	
+
+</template>
+
+
+<!-- LIST OF TOP USERS -->
+
+<template name="list_top">
+
+	<div class="list_top">
+		<ul class="top-tab">
+			{{#each top}}
+				<li>
+					<span class="position">{{index}}</span>
+					<div class="avatar"><img src="images/temp/thumb-2.png" alt="" /></div>
+					<strong>{{name}} {{puntos}}</strong>
+				</li>
+			{{/each}}
+		</ul>
+		<ul class="top-title">
+			<li> Top5 </li>
+			<li><i></i><strong>Saboteur</strong> </li>
+		</ul>
+	</div>
+
+</template> 
+
+
+<!-- GAMEBOARD -->
+
+<template name="tab_board">
+
+	<div class="tab-board">
+		<ul class="tabs">
+			<li class="active">
+				<a href="#tab-matches" data-toggle="tab"><i class="board-icon board-icon-1"></i>Matches</a>
+			</li>
+			<li>
+				<a href="#tab-mymatches" data-toggle="tab"><i class="board-icon board-icon-2"></i>My Matches</a>
+			</li>
+			<li>
+				<a href="#tab-profile" data-toggle="tab"><i class="board-icon board-icon-3"></i>Profile</a>
+			</li>
+			<li>
+				<a href="#tab-new" data-toggle="tab"><i class="board-icon board-icon-4"></i>New Match</a>
+			</li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="tab-matches">
+				<h1>LIST OF MATCHES</h1>
+				<div>
+					{{#each match}}
+						<li class="li-matches">
+							Match::: {{titulo}}, [{{listaJugadores}}] {{measure}}
+							{{#if userInMatch}}
+								<button type="button" class="unirse-partida"> Join Match </button>
+							{{/if}}	
+						</li>
+					{{/each}}
+				</div>	
+			</div>
+			<div class="tab-pane fade" id="tab-mymatches">
+				<div>
+					<p>MY MATCHES</p>
+					{{#each mymatch}}
+						<li>
+							Match::: {{titulo}}, [{{listaJugadores}}] {{measure}}
+							{{#if startMatch}}
+								<button type="button" class="empezar-partida"> Start Match </button>
+							{{/if}}
+						</li>
+					{{/each}}
+				</div>
+				<div>
+					<p>MY STARTED MATCHES</p>
+					{{#each mystartedMatch}}
+						<li>
+							Match::: {{titulo}}, [{{listaJugadores}}] {{measure}}
+							<button type="button" class="entrar-partida"> Enter Match </button>
+						</li>
+					{{/each}}
+				</div>	
+			</div>
+			<div class="tab-pane fade" id="tab-profile">
+				<p>PROFILE</p>
+			</div>
+			<div class="tab-pane fade" id="tab-new">
+				<p>New Match</p>
+		    	<form>
+		    		<input type="text" name="titulo" placeholder="Title" required />
+		    		<input type="number" name="numJugadores"  min="2" max="10" required />
+		   			<button type="submit"> New Match </button>
+		   		</form>
+		   		<div id="tab-error"></div>
+			</div>
+
+		</div>
+
+	</div>
+
+</template>
+
+
+<!-- NAVIGATION-->
+
+<template name="register">
+    <div class="panel-reg">
+    	<h1>Register</h1>
+    	<form class="register">
+    		<input type="text" name="username" placeholder="Username" required />
+    		<input type="email" name="email" placeholder="Email" required />
+   			<input type="password" name="password" placeholder="Password" required />
+   			<button type="submit" class="panel-btn"> Register </button>
+   		</form>
+    </div>
+</template>
+
+<template name="login">
+    <div class="panel-reg">
+    	<h1>Login</h1>
+    	<form class="login">
+    		<input type="email" name="email" placeholder="Email" required />
+   			<input type="password" name="password" placeholder="Password" required />
+   			<button type="submit" class="panel-btn"> Login </button>
+   		</form>
+    </div>
+</template>
+
+<template name="navigation">
+    <ul class="nav-menu">
+        <li id="navhome"><a href="{{pathFor route='home'}}"><i class="nav-icon nav-icon-1"></i>Home</a></li>
+        {{#if currentUser}}
+        	<li><a href="#" class="logout"><i class="nav-icon nav-icon-1"></i>Logout</a></li>
+        	<li><a href="#"><i class="nav-icon nav-icon-3"></i>{{currentUser.username}}</a></li>
+        {{else}}
+        	<li id="navregister"><a href="{{pathFor route='register'}}"><i class="nav-icon nav-icon-2"></i>Register</a></li>
+        	<li id="navlogin"><a href="{{pathFor route='login'}}"><i class="nav-icon nav-icon-2"></i>Login</a></li>
+        {{/if}}
+    </ul>
+</template>
+
+<!-- FOOTER -->
+<template name="footer">
+	<div id="gallery"><h1>SABOTEUR</h1></div>
+	<section class="footer-links">
+		<ul class="social-links">
+			<li>External links:</li>
+
+			<li class="social-link">
+				<a href="#">Twitter</a>
+			</li>
+
+			<li class="social-link">
+				<a href="#">Pivotal</a>
+			</li>
+
+			<li class="social-link">
+				<a href="#">Meteor</a>
+			</li>
+		</ul>
+	</section>
+</template>
+
+<template name="loading">
+</template>
