@@ -249,8 +249,6 @@ var comprobarCelda = function(partidaId,tablero,c,row,col){
    	return true;
 };
 
-
-
 var nMaxCartas = function(numJugadores){
 	var n;
 	if ((numJugadores >= 2) && (numJugadores <= 5)) {
