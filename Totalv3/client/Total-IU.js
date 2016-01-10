@@ -72,12 +72,14 @@ render = function() {
     var can_height= $('#canvas').attr('height');
 
     //Canvas para las puntuaciones
-    var canvas2 = document.getElementById('canvas2');
+    /*var canvas2 = document.getElementById('canvas2');
     var ctx2 = canvas2.getContext('2d');
     var tablero2= new Image();
     tablero2.src='tablero.jpg'
     var can_widht2=$('#canvas2').attr('width');
-    var can_height2= $('#canvas2').attr('height');
+    var can_height2= $('#canvas2').attr('height');*/
+
+
 
     var cartas_mano=[]
     
@@ -117,7 +119,7 @@ render = function() {
     
     function rend_tablero() {
       
-      ctx.clearRect(0,0,can_widht,can_height);
+      ctx.clearRect(0,850,can_widht,can_height);
       
       ctx.drawImage(tablero,0,0,can_widht,can_height);
       
@@ -200,96 +202,96 @@ render = function() {
     
     function rend_Carac() {
         
-	ctx2.drawImage(tablero,0,0,can_widht2,can_height2);
+	//ctx2.drawImage(tablero,0,0,can_widht2,can_height2);
 	
 	//Título
         if (rendThis()){
           if(myTurno()){
-            ctx2.fillStyle = "rgb(30, 144, 255)";
-    	      ctx2.font = "bold 27px  Fantasía";
-    	      ctx2.textAlign = "left";
-    	      ctx2.textBaseline = "top";
-            ctx2.fillText("Título: " + partd().titulo + ": (ES MI TURNO)", 32, 32);
+            ctx.fillStyle = "rgb(30, 144, 255)";
+    	      ctx.font = "bold 27px  Fantasía";
+    	      ctx.textAlign = "left";
+    	      ctx.textBaseline = "top";
+            ctx.fillText("Título: " + partd().titulo + ": (ES MI TURNO)", 850, 10);
           } else  {
-            ctx2.fillStyle = "rgb(30, 144, 255)";
-    	      ctx2.font = "bold 27px  Fantasía";
-    	      ctx2.textAlign = "left";
-    	      ctx2.textBaseline = "top";
-            ctx2.fillText("Título: " + partd().titulo + ": (ESPERANDO)", 32, 32);
+            ctx.fillStyle = "rgb(30, 144, 255)";
+    	      ctx.font = "bold 27px  Fantasía";
+    	      ctx.textAlign = "left";
+    	      ctx.textBaseline = "top";
+            ctx.fillText("Título: " + partd().titulo + ": (ESPERANDO)", 850, 10);
           }
 
            //Jugadores
-            ctx2.fillStyle = "rgb(30, 144, 255)";
-    	      ctx2.font = "24px  Fantasía";
-    	      ctx2.textAlign = "left";
-    	      ctx2.textBaseline = "top";
-            ctx2.fillText("Jugadores: " + partd().listaJugadores, 32, 80);
+            ctx.fillStyle = "rgb(30, 144, 255)";
+    	      ctx.font = "24px  Fantasía";
+    	      ctx.textAlign = "left";
+    	      ctx.textBaseline = "top";
+            ctx.fillText("Jugadores: " + partd().listaJugadores, 850, 50);
 
             //Mazo
-            ctx2.fillStyle = "rgb(30, 144, 255)";
-    	      ctx2.font = "24px  Fantasía";
-    	      ctx2.textAlign = "left";
-    	      ctx2.textBaseline = "top";
-            ctx2.fillText("Mazo: " + mazLength(), 32, 110);
+            ctx.fillStyle = "rgb(30, 144, 255)";
+    	      ctx.font = "24px  Fantasía";
+    	      ctx.textAlign = "left";
+    	      ctx.textBaseline = "top";
+            ctx.fillText("Mazo: " + mazLength(), 850, 80);
 
             //Roll
-            ctx2.fillStyle = "rgb(30, 144, 255)";
-            ctx2.font = "24px  Fantasía";
-            ctx2.textAlign = "left";
-            ctx2.textBaseline = "top";
-            ctx2.fillText("Roll: " + caracteristicas().roll, 32, 140);
+            ctx.fillStyle = "rgb(30, 144, 255)";
+            ctx.font = "24px  Fantasía";
+            ctx.textAlign = "left";
+            ctx.textBaseline = "top";
+            ctx.fillText("Roll: " + caracteristicas().roll, 850, 110);
 
             //Farolillo
             if (caracteristicas().farolillo){
-                ctx2.fillStyle = "rgb(30, 144, 255)";
-                ctx2.font = "24px  Fantasía";
-                ctx2.textAlign = "left";
-                ctx2.textBaseline = "top";
-                ctx2.fillText("Farolillo: Arreglado", 32, 170);
+                ctx.fillStyle = "rgb(30, 144, 255)";
+                ctx.font = "24px  Fantasía";
+                ctx.textAlign = "left";
+                ctx.textBaseline = "top";
+                ctx.fillText("Farolillo: Arreglado", 850, 140);
             } else {
-                ctx2.fillStyle = "rgb(30, 144, 255)";
-                ctx2.font = "24px  Fantasía";
-                ctx2.textAlign = "left";
-                ctx2.textBaseline = "top";
-                ctx2.fillText("Farolillo: Roto", 32, 170);
+                ctx.fillStyle = "rgb(30, 144, 255)";
+                ctx.font = "24px  Fantasía";
+                ctx.textAlign = "left";
+                ctx.textBaseline = "top";
+                ctx.fillText("Farolillo: Roto", 850, 140);
             }
 
             //Pico
             if (caracteristicas().pico){
-                ctx2.fillStyle = "rgb(30, 144, 255)";
-                ctx2.font = "24px  Fantasía";
-                ctx2.textAlign = "left";
-                ctx2.textBaseline = "top";
-                ctx2.fillText("Pico: Arreglado", 32, 200);
+                ctx.fillStyle = "rgb(30, 144, 255)";
+                ctx.font = "24px  Fantasía";
+                ctx.textAlign = "left";
+                ctx.textBaseline = "top";
+                ctx.fillText("Pico: Arreglado", 850, 170);
             } else {
-              ctx2.fillStyle = "rgb(30, 144, 255)";
-              ctx2.font = "24px  Fantasía";
-              ctx2.textAlign = "left";
-              ctx2.textBaseline = "top";
-              ctx2.fillText("Pico: Roto", 32, 200);
+              ctx.fillStyle = "rgb(30, 144, 255)";
+              ctx.font = "24px  Fantasía";
+              ctx.textAlign = "left";
+              ctx.textBaseline = "top";
+              ctx.fillText("Pico: Roto", 850, 170);
             }
 
             //Vagoneta
             if (caracteristicas().vagoneta){
-                ctx2.fillStyle = "rgb(30, 144, 255)";
-                ctx2.font = "24px  Fantasía";
-                ctx2.textAlign = "left";
-                ctx2.textBaseline = "top";
-                ctx2.fillText("Vagoneta: Arreglado", 32, 230);
+                ctx.fillStyle = "rgb(30, 144, 255)";
+                ctx.font = "24px  Fantasía";
+                ctx.textAlign = "left";
+                ctx.textBaseline = "top";
+                ctx.fillText("Vagoneta: Arreglado", 850, 200);
             } else {
-              ctx2.fillStyle = "rgb(30, 144, 255)";
-              ctx2.font = "24px  Fantasía";
-              ctx2.textAlign = "left";
-              ctx2.textBaseline = "top";
-              ctx2.fillText("Vagoneta: Roto", 32, 230);
+              ctx.fillStyle = "rgb(30, 144, 255)";
+              ctx.font = "24px  Fantasía";
+              ctx.textAlign = "left";
+              ctx.textBaseline = "top";
+              ctx.fillText("Vagoneta: Roto", 850, 200);
             }
 
             //Puntos
-            ctx2.fillStyle = "rgb(30, 144, 255)";
-            ctx2.font = "24px  Fantasía";
-            ctx2.textAlign = "left";
-            ctx2.textBaseline = "top";
-            ctx2.fillText("Puntos: " + caracteristicas().puntuacion, 32, 260);
+            ctx.fillStyle = "rgb(30, 144, 255)";
+            ctx.font = "24px  Fantasía";
+            ctx.textAlign = "left";
+            ctx.textBaseline = "top";
+            ctx.fillText("Puntos: " + caracteristicas().puntuacion, 850, 230);
         }
     }
 
@@ -481,8 +483,9 @@ render = function() {
       }
       
       //console.log(Caracteristicas.findOne({partidaId: Session.get("selectedPartida"),jugadorId: Meteor.userId()}).mano)
-      rend_Carac();
+      
       draw();
+      rend_Carac();
     });
 
 }
