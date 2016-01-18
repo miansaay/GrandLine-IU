@@ -1,0 +1,90 @@
+<template name="perfiles">
+<div class="panel panel-default" id="cuadroPerfil">
+		<div class="panel panel-info" id="panelinfo">
+ 			<div class="panel-heading">{{nicky}}</div>
+ 			
+			<div id="imag">
+			
+			<img  src="{{imagen}}">
+			</div>
+		
+
+
+			<div class="well well-sm">
+			     Nombre: {{nombre}} 
+			 </div>    
+			<div class="well well-sm">
+			     Email: {{email}}
+			  </div>   
+			  <div class="well well-sm">
+			     Nacionalidad: {{nacionalidad}}
+			  </div>
+			<div class="well well-sm">
+			     Genero: {{genero}}
+			 
+			</div>
+			{{#if esAmigo}}
+    		<button class="inc" id="botonquitarAmigo">Eliminar de amigos</button>
+  			{{else}}
+  			<button class="inc" id="botonponerAmigo">Añadir a amigos</button>
+  			{{/if}}
+  			
+		
+
+
+		</div>
+		<div class="panel panel-info" id="panelinfo2">
+			<div class="panel-heading">Mejores Marcas</div>
+
+
+			<table class="table table-bordered">
+  				 <thead>
+			        <tr>
+			           
+			            <th>Juego</th>
+			            <th>Puntuacion</th>
+			            
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <tr>
+			            
+			            <td>Saboteur</td>
+			            <td>0</td>
+			            
+			        </tr>
+			        <tr>
+			            
+			            <td>Alien-invasion</td>
+			            <td>0</td>
+			            
+			        </tr>
+			        <tr>
+			            
+			            <td>OTRO</td>
+			            <td>0</td>
+			            
+			        </tr>
+    			</tbody>
+			</table>
+
+
+
+		</div>
+		<div class="panel panel-info" id="panelinfo3" style="overflow-y:auto">
+			<div class="panel-heading">Amigos</div>
+				{{#each amigos}}
+				<div class="list-group" >
+				    <a href="#" class="list-group-item active">
+				        <span> <img src="{{this.profile.image}}" width="25" height="25"></span> {{this.username}}<span class="badge">0</span>
+				    </a>
+				    
+				</div>
+				{{/each}}
+
+		</div>
+		
+		
+	
+</div>
+</template>
