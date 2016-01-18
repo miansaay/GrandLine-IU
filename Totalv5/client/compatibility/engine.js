@@ -284,7 +284,7 @@ HandBoard.prototype = new BaseClass();
 
 HandBoard.prototype.updateHand = function(card){
 	for (i = 0; i < this.list.length - 2; i++) {
-		this.list[i].setColor("black");
+		this.list[i].setColor("transparent");
 		if(this.list[i] === card){
 			this.list[i].setColor("yellow");
 		}
