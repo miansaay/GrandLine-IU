@@ -1,8 +1,10 @@
-var c;
+var canvas;
 var ctx;
 var offsetLeft;
 var offsetTop;
 
+var cursorX;
+var cursorY;
 
 var sprites = {
 
@@ -84,14 +86,14 @@ var sprites = {
 var loadCanvas = function(partidaId){
 	$(".total-board").show();
   	$(".match-board").show();
-  	if(!c){
-		c = document.getElementById('canvas');
-		offsetLeft = $(c).offset().left;
-		offsetTop = $(c).offset().top;
-		ctx = c.getContext && c.getContext("2d");
-		c.width = 1100;
-		c.height = 810;
-	}	
+  	if(!canvas){
+		canvas = document.getElementById('canvas');
+		offsetLeft = $(canvas).offset().left;
+		offsetTop = $(canvas).offset().top;
+		ctx = canvas.getContext && canvas.getContext("2d");
+		canvas.width = 1100;
+		canvas.height = 810;
+	}
 
 	var p = Partidas.findOne({_id: partidaId});
 	var c = Caracteristicas.findOne({partidaId: partidaId,jugadorId: Meteor.userId()});
@@ -101,17 +103,21 @@ var loadCanvas = function(partidaId){
 
 	offListener(newGame);
 	clickListener(newGame);
+
 	runTracker(partidaId,newGame);
 
 };
 
+
 //LISTENER DEL CLICK SOBRE CANVAS
 var clickListener = function(game){
-	$('#canvas').click(function(event) {
+	console.log("CARGADO");
+/*	$('#canvas').click(function(event) {
 		var x = event.pageX - offsetLeft;
 		var y = event.pageY - offsetTop;
 		game.selectPlay(x,y);
 	});
+*/
 };
 
 
@@ -122,17 +128,24 @@ var offListener = function(game){
 	});
 };
 
+
 //TRACKER PARA ACTUALIZAR EL TURNO Y PROCESAR ACCIONES NUEVAS
 var runTracker = function(partidaId,game){
 	// TRACKER DEL TURNO
 	var turnoTracker = Tracker.autorun(function(){
+//		console.log("tracker de turno");
 		var turno = Partidas.findOne({_id: partidaId}).jugadorActivo;
 		game.updateTurno(turno);
 	});
 
 	//TRACKER DE ACCIONES
 	var accionTracker = Tracker.autorun(function(){
+//		console.log("tracker de accion");
 		var accion = Acciones.findOne({partidaId: partidaId},{sort: {datetime: -1,limit: 1}});
+		var usuario = Meteor.user().username;
+
+//		console.log("ACCION de " + usuario);
+//		console.log(accion);
 		if(accion){
 			game.processAccion(accion);
 		}

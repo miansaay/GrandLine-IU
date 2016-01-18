@@ -451,6 +451,7 @@ var Game = function(partidaId) {
 	this.accionId = null;
 	this.stop = false;
 	this.isMyTurn = false;
+	this.handlers = false;
 	that = this;
 
 
@@ -500,6 +501,8 @@ var Game = function(partidaId) {
 		var fila = -1;
 		var columna = -1;
 		//
+
+		console.log(accion);
 
 		if(accion[0] == null || (accion[1] == null && accion[2] == null && !accion[3])){
 			return;
@@ -592,11 +595,54 @@ var Game = function(partidaId) {
 		}
 	};
 
+	this.onListeners = function(){
+		console.log("AGREGO LISTENERS");
+		$('#canvas').on( "mousemove", function( event ) {
+	//		console.log(event);
+	  		cursorX = event.pageX - offsetLeft;
+	  		cursorY = event.pageY - offsetTop;
+		});
+		
+		$('#canvas').on("mousedown", function(event) {
+			var x = event.pageX - offsetLeft;
+			var y = event.pageY - offsetTop;
+
+			console.log("has clickado en (" + x + "," + y + ")");
+		});
+
+		$('#canvas').on("mouseup", function(event) {
+			var x = event.pageX - offsetLeft;
+			var y = event.pageY - offsetTop;
+
+			console.log("has soltado en (" + x + "," + y + ")");
+		});
+
+		$('#canvas').click(function(event) {
+			var x = event.pageX - offsetLeft;
+			var y = event.pageY - offsetTop;
+			this.selectPlay(x,y);
+		});
+	};
+
+	this.offListeners = function(){
+		console.log("elimino listeners");
+		$('#canvas').off();
+	};
+
 	//LOOP DEL GAME
 	this.loop = function(){
+		if(that.isMyTurn && !that.handlers){
+			that.onListeners();
+			that.handlers = true;
+		}else if(!that.isMyTurn && that.handlers){
+			that.offListeners();
+			that.handlers = false;
+		}
+
 		ctx.drawImage(that.fondo,0,0,1100,810);
 		that.gameboard.draw();
 
+//		console.log("[" + cursorX + "," + cursorY + "]");
 		if(!that.stop){
 			setTimeout(that.loop, 60);
 		}
