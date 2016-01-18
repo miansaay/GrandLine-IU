@@ -620,7 +620,7 @@ var Game = function(partidaId) {
 		$('#canvas').click(function(event) {
 			var x = event.pageX - offsetLeft;
 			var y = event.pageY - offsetTop;
-			this.selectPlay(x,y);
+			that.selectPlay(x,y);
 		});
 	};
 
