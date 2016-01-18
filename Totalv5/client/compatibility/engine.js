@@ -65,7 +65,7 @@ BaseClass.prototype.inRegion = function(x,y){
 
 var Card = function(x,y) {
 	this.girada = false;
-	this.color = "black";
+	this.color = "transparent";
 	this.sprite = "Standard";
 	this.initialize(x,y,60,90);
 
@@ -447,7 +447,7 @@ var Game = function(partidaId) {
 	this.accionTracker = null;
 	this.inProcess = false;
 	this.fondo = new Image();
-	this.fondo.src = "sprites/fondo.jpg";
+	this.fondo.src = "sprites/tablero.jpg";
 	this.accionId = null;
 	this.stop = false;
 	this.isMyTurn = false;
