@@ -69,7 +69,13 @@ var Card = function(x,y) {
 	this.color = "transparent";
 	this.sprite = "Standard";
 	this.seleccionada = false;
+	this.moviendo = false;
 	this.initialize(x,y,60,90);
+
+	this.setCoord = function(x,y){
+		this.x = x;
+		this.y = y;
+	};
 
 	this.setSprite = function(sprite){
 		this.sprite = sprite;
@@ -97,7 +103,7 @@ var Card = function(x,y) {
 		}
 	}
 
-	this.draw = function(scroll){
+	this.draw = function(scroll, coordx, coordy){
 		var x = this.x;
 		var y = this.y;
 		if(scroll){
@@ -116,10 +122,9 @@ var Card = function(x,y) {
 };
 
 
-
 // BOARD
-
 var Board = function() {
+	BaseClass.call(this);
 	this.initialize(0,0,900,630);
 	this.scroll = 11;
 
@@ -136,35 +141,33 @@ var Board = function() {
 	this.list[12][11].setSprite("DestinoAtras");
 	this.list[14][11].setSprite("DestinoAtras");
 	this.list[16][11].setSprite("DestinoAtras");
-};
 
-Board.prototype = new BaseClass();
+	this.selectCell = function(x,y){
+		if(!this.inRegion(x,y)){
+			return null;
+		}
 
-Board.prototype.selectCell = function(x,y){
-	if(!this.inRegion(x,y)){
-		return null;
-	}
+		var columna = Math.floor(x/60);
+	   	var fila = Math.floor(y/90);
 
-	var columna = Math.floor(x/60);
-   	var fila = Math.floor(y/90);
-
-   	return [(fila+this.scroll),columna];
-};
+	   	return [(fila+this.scroll),columna];
+	};
 
 
-Board.prototype.draw = function(){
-	drawRect("black",this.x,this.y,this.w,this.h);
-	for (i = this.scroll; i < this.scroll + 7; i++) {
-		for (j = 0; j < 15; j++) {
-			this.list[i][j].draw(this.scroll);
+	this.draw = function(){
+		drawRect("black",this.x,this.y,this.w,this.h);
+		for (i = this.scroll; i < this.scroll + 7; i++) {
+			for (j = 0; j < 15; j++) {
+				this.list[i][j].draw(this.scroll);
+			};
 		};
 	};
 };
 
 
 // POINTS TABLE
-
 var PlayerZone = function(x,y,w,h){
+	BaseClass.call(this);
 	this.initialize(x,y,w,h);
 	this.farol = "FarolOk";
 	this.vagon = "VagonOk";
@@ -206,19 +209,18 @@ var PlayerZone = function(x,y,w,h){
 		SpriteSheet.draw(this.vagon, this.x + 40, this.y + (this.h / 2));
 		SpriteSheet.draw(this.pico, this.x + 80, this.y + (this.h / 2));
 	};
-};
 
-PlayerZone.prototype = new BaseClass();
-
-PlayerZone.prototype.draw = function(){
-	fillRect(this.fontColor,this.x, this.y, this.w, this.h);
-	drawText(this.name,"black","20px Georgia",this.x,this.y + 40);
-	drawRect("black",this.x,this.y,this.w,this.h);
-	this.drawObjects();
+	this.draw = function(){
+		fillRect(this.fontColor,this.x, this.y, this.w, this.h);
+		drawText(this.name,"black","20px Georgia",this.x,this.y + 40);
+		drawRect("black",this.x,this.y,this.w,this.h);
+		this.drawObjects();
+	};
 };
 
 
 var PointsBoard = function(names) {
+	BaseClass.call(this);
 	this.initialize(900,0,200,810);
 	this.list = new Array(names.length);
 
@@ -243,42 +245,39 @@ var PointsBoard = function(names) {
 		};
 	};
 
-};
-
-PointsBoard.prototype = new BaseClass();
-
-PointsBoard.prototype.updateTarget = function(name,objeto){
-	for (i = 0; i < this.list.length; i++) {
-		if(this.list[i].name == name){
-			this.list[i].changeObject(objeto);
-		}
+	this.updateTarget = function(name,objeto){
+		for (i = 0; i < this.list.length; i++) {
+			if(this.list[i].name == name){
+				this.list[i].changeObject(objeto);
+			}
+		};
 	};
-};
 
-PointsBoard.prototype.selectTarget = function(x,y){
-	if(!this.inRegion(x,y)){
+	this.selectTarget = function(x,y){
+		if(!this.inRegion(x,y)){
+			return null;
+		}
+
+		for (i = 0; i < this.list.length; i++) {
+			if(this.list[i].inRegion(x,y)){
+				return this.list[i].name;
+			}
+		};
+
 		return null;
-	}
-
-	for (i = 0; i < this.list.length; i++) {
-		if(this.list[i].inRegion(x,y)){
-			return this.list[i].name;
-		}
 	};
 
-	return null;
-};
-
-PointsBoard.prototype.draw = function(){
-	drawRect("black",this.x,this.y,this.w,this.h);
-	for (i = 0; i < this.list.length; i++) {
-		this.list[i].draw();
+	this.draw = function(){
+		drawRect("black",this.x,this.y,this.w,this.h);
+		for (i = 0; i < this.list.length; i++) {
+			this.list[i].draw();
+		};
 	};
 };
 
 // HAND CARDS
-
 var HandBoard = function(cardsHand,roll) {
+	BaseClass.call(this);
 	this.initialize(0,630,900,180);
 	this.roll = roll;
 	this.list = new Array(cardsHand.length+2);
@@ -292,46 +291,51 @@ var HandBoard = function(cardsHand,roll) {
 	i = i + 1;
 	this.list[i] = new Card((i*90)+40,this.y + 50);
 	this.list[i].setText("GIRAR");
-};
 
-HandBoard.prototype = new BaseClass();
+	this.updateHand = function(card){
+		for (i = 0; i < this.list.length - 2; i++) {
+			this.list[i].setColor("transparent");
+			this.list[i].setSize(60,90);
+			if(this.list[i] === card){
+				this.list[i].setSize(72,108);
+			}
+		};
 
-HandBoard.prototype.updateHand = function(card){
-	for (i = 0; i < this.list.length - 2; i++) {
-		this.list[i].setColor("transparent");
-		this.list[i].setSize(60,90);
-		if(this.list[i] === card){
-//			this.list[i].setColor("yellow");
-//			console.log("cambio tamaño");
-			this.list[i].setSize(72,108);
-		}
-	};
-};
-
-
-HandBoard.prototype.inRegion = function(x,y){
-	for (i = 0; i < this.list.length; i++) {
-		var aux = this.list[i];
-		if(aux.inRegion(x,y)){
-			return aux;
-		}
 	};
 
-	return null;
-};
+	this.mover = function(card,x,y){
+		for(i = 0; i < this.list.length - 2; i++){
+			if(this.list[i] === card){
+//				console.log("muevo a: (" + card.x + "," + card.y + ")");
+				this.list[i].setCoord(x,y);
+			}
+		}
+	}
 
-HandBoard.prototype.draw = function(){
-	drawText(this.roll,"red","20px Georgia",this.x + 400,this.y + 30);
-	drawRect("black",this.x,this.y,this.w,this.h);
-//	console.log("dibujo mano");
-	for (i = 0; i < this.list.length; i++) {
-		this.list[i].draw();
+	this.inRegion = function(x,y){
+		for (i = 0; i < this.list.length; i++) {
+			var aux = this.list[i];
+			if(aux.inRegion(x,y)){
+				return aux;
+			}
+		};
+		return null;
+	};
+
+	this.draw = function(){
+		drawText(this.roll,"red","20px Georgia",this.x + 400,this.y + 30);
+		drawRect("black",this.x,this.y,this.w,this.h);
+//		console.log("dibujo mano");
+		for (i = 0; i < this.list.length; i++) {
+			this.list[i].draw();
+		};
 	};
 };
 
 // GAMEBOARD(BOARD, POINTS TABLE, HAND CARDS)
 
 var GameBoard = function(namesPlayers,cardsHand,roll) {
+	BaseClass.call(this);
 	this.initialize(0,0,1100,810);
 
 	//BOARD, POINTBOARD, HANDBOARD
@@ -347,69 +351,65 @@ var GameBoard = function(namesPlayers,cardsHand,roll) {
 	this.selectedCoord = null;
 	//DESCARTAR SELECCIONADO
 	this.selectedDiscard = false;
-};
 
-GameBoard.prototype = new BaseClass();
+	this.createAccion = function(){
+		var accion = [];
+		accion.push(this.selectedCard);
+		accion.push(this.selectedCoord);
+		accion.push(this.selectedTarget);
+		accion.push(this.selectedDiscard);
 
-GameBoard.prototype.createAccion = function(){
-	var accion = [];
-	accion.push(this.selectedCard);
-	accion.push(this.selectedCoord);
-	accion.push(this.selectedTarget);
-	accion.push(this.selectedDiscard);
+		return accion;
+	};
 
-	return accion;
-};
+	this.inRegion = function(x,y){
+		//ANTES DE TODO PONER A NULL TARGET,COORD Y DISCARD
+		this.selectedTarget = null;
+		this.selectedCoord = null;
+		this.selectedDiscard = false;
+		//VER QUE SE SELECCIONA
+		var r = this.handboard.inRegion(x,y);
 
-GameBoard.prototype.inRegion = function(x,y){
-	//ANTES DE TODO PONER A NULL TARGET,COORD Y DISCARD
-	this.selectedTarget = null;
-	this.selectedCoord = null;
-	this.selectedDiscard = false;
-	//VER QUE SE SELECCIONA
-	var r = this.handboard.inRegion(x,y);
-
-	console.log(r);
-
-	//SOLO LLAMO A BOARD Y POINTBOARD SI HAY CARTA SELECCIONADA
-	if(this.selectedCard != null){
-		this.selectedCoord = this.board.selectCell(x,y);
-//		console.log(this.selectedCoord);
-		this.selectedTarget = this.pointsboard.selectTarget(x,y);
-	}
-
-	//SI R NO ES NULL, HAY QUE COMPROBAR SI HAY QUE SELECCIONAR,PASAR O GIRAR.
-	if(r != null){
-		switch(r.text){
-			case undefined:
-				this.handboard.updateHand(r);
-				this.selectedCard = r;
-				break;
-			case "GIRAR":
-				if(this.selectedCard != null){
-					this.selectedCard.girar();
-				}
-				break;
-			case "PASAR":
-				this.selectedDiscard = true;
-				break;
+//		console.log(r);
+		//SOLO LLAMO A BOARD Y POINTBOARD SI HAY CARTA SELECCIONADA
+		if(this.selectedCard != null){
+			this.selectedCoord = this.board.selectCell(x,y);
+	//		console.log(this.selectedCoord);
+			this.selectedTarget = this.pointsboard.selectTarget(x,y);
 		}
-	}
+		//SI R NO ES NULL, HAY QUE COMPROBAR SI HAY QUE SELECCIONAR,PASAR O GIRAR.
+		if(r != null){
+			switch(r.text){
+				case undefined:
+					this.handboard.updateHand(r);
+					this.selectedCard = r;
+					break;
+				case "GIRAR":
+					if(this.selectedCard != null){
+						this.selectedCard.girar();
+					}
+					break;
+				case "PASAR":
+					this.selectedDiscard = true;
+					break;
+			}
+		}
+		//RETORNO LA ACCION CON LA CARTA SELECCIONADA, Y DONDE SE PONE
+		return this.createAccion();
+	};
 
-	//RETORNO LA ACCION CON LA CARTA SELECCIONADA, Y DONDE SE PONE
-	return this.createAccion();
-};
-
-GameBoard.prototype.draw = function(){
-	drawRect("black",this.x,this.y,this.w,this.h);
-	this.board.draw();
-	this.pointsboard.draw();
-	this.handboard.draw();
+	this.draw = function(){
+		drawRect("black",this.x,this.y,this.w,this.h);
+		this.board.draw();
+		this.pointsboard.draw();
+		this.handboard.draw();
+	};
 };
 
 
 //FINAL DE RONDA O PARTIDA
 var canvasFinal = function(tipoGanador) {
+	BaseClass.call(this);
 	this.initialize(0,0,1100,810);
 	this.tipoGanador = tipoGanador;
 	this.textSiguiente = "SIGUIENTE RONDA";
@@ -427,40 +427,35 @@ var canvasFinal = function(tipoGanador) {
 		this.ganadores = ganadores;
 	};
 
-
-};
-
-canvasFinal.prototype = new BaseClass();
-
-canvasFinal.prototype.inRegion = function(x,y){
-	//AUX = [X,Y,W,H]
-	var aux = [400,100,300,50];
-	if(x >= aux[0] && x < aux[0] + aux[2] && y >= aux[1] && y < aux[1] + aux[3]){
-		return true;
-	}
-	return false;
-};
+	this.inRegion = function(x,y){
+		//AUX = [X,Y,W,H]
+		var aux = [400,100,300,50];
+		if(x >= aux[0] && x < aux[0] + aux[2] && y >= aux[1] && y < aux[1] + aux[3]){
+			return true;
+		}
+		return false;
+	};
 
 
-canvasFinal.prototype.draw = function(){
-	if(this.textSiguiente == "SIGUIENTE RONDA"){
-		ctx.fillStyle = "white";
-		ctx.fillRect(this.x,this.y,this.w,this.h);
-		ctx.fillStyle = "black";
-		ctx.font = "50px Georgia";
-		ctx.fillText("GANADOR: " + this.tipoGanador,this.x + this.w / 2 - 200,this.y + this.h/2);
-	}else{
-		ctx.fillStyle = "black";
-		ctx.font = "20px Georgia";
-		for(i = 0; i < this.ganadores.length; i++){
-			ctx.fillText((i+1).toString() + ") " + this.ganadores[i], this.x + this.w / 2 - 100, this.y + this.h/2 + (i*50));
-		};
-	}
-	this.drawRonda();
+	this.draw = function(){
+		if(this.textSiguiente == "SIGUIENTE RONDA"){
+			ctx.fillStyle = "white";
+			ctx.fillRect(this.x,this.y,this.w,this.h);
+			ctx.fillStyle = "black";
+			ctx.font = "50px Georgia";
+			ctx.fillText("GANADOR: " + this.tipoGanador,this.x + this.w / 2 - 200,this.y + this.h/2);
+		}else{
+			ctx.fillStyle = "black";
+			ctx.font = "20px Georgia";
+			for(i = 0; i < this.ganadores.length; i++){
+				ctx.fillText((i+1).toString() + ") " + this.ganadores[i], this.x + this.w / 2 - 100, this.y + this.h/2 + (i*50));
+			};
+		}
+		this.drawRonda();
+	};
 };
 
 // TOTAL GAME
-
 var Game = function(partidaId) {
 	this.partidaId = partidaId;
 	this.turnoTracker = null;
@@ -521,11 +516,6 @@ var Game = function(partidaId) {
 		var fila = -1;
 		var columna = -1;
 
-//		console.log(accion);
-//		console.log(this);
-//		console.log(that);
-//		console.log("---------------------------------");
-
 		if(accion[0] == null || (accion[1] == null && accion[2] == null && !accion[3])){
 			return;
 		}
@@ -548,6 +538,10 @@ var Game = function(partidaId) {
 		//METEOR CALL JUGAR CARTA
 		Meteor.call("jugarCarta",that.partidaId,action,carta,target, function(error,result) {
 			if(result != false){
+				console.log("------------------------");
+				console.log(result);
+				console.log(error);
+				console.log("------------------------");
 				//SI SE A JUGADO UNA CARTA DE DESCUBRIMIENTO, EL SERVER NOS DEVUELVE LA CARTA A DESTAPAR
 				if(result != true){
 					that.gameboard.board.list[fila][columna].setSprite(result.name);
@@ -558,6 +552,7 @@ var Game = function(partidaId) {
 			}
 			that.inProcess = false;
 		});
+		console.log("carta jugada");
 	};
 
 	//MANEJAR LOS CLICK SOBRE EL CANVAS
@@ -566,17 +561,14 @@ var Game = function(partidaId) {
 		if(!this.isMyTurn || this.inProcess){
 			return;
 		}
-
-//		console.log(this);
-//		console.log(that);
-//		console.log("---------------------------------");
 		var accion = this.gameboard.inRegion(x,y);
 		if(accion == true){
 			this.stopGame();
 			loadCanvas(this.partidaId);
 		}else{
-			console.log(accion);
+//			console.log(accion);
 			this.processPlay(accion);
+			return accion;
 		}
 	};
 
@@ -620,16 +612,28 @@ var Game = function(partidaId) {
 
 	this.onListeners = function(){
 		console.log("AGREGO LISTENERS");
+		var over = false;
+		var seleccionada = false;
+		var carta = null;
+		var cartaSeleccionada = null;
+
 		$('#canvas').on( "mousemove", function( event ) {
-	//		console.log(event);
 	  		var x = event.pageX - offsetLeft;
 	  		var y = event.pageY - offsetTop;
 
-	  		var seleccionada = that.gameboard.handboard.inRegion(x,y);
-//	  		console.log(accion);
-
-//	 	    console.log(seleccionada);
-	 		that.gameboard.handboard.updateHand(seleccionada);
+	  		if(!seleccionada){
+		  		carta = that.gameboard.handboard.inRegion(x,y);
+		  		if(carta && (!over)){
+		 			that.gameboard.handboard.updateHand(carta);
+		 			over = true;
+		  		} else if(!carta){
+		  			that.gameboard.handboard.updateHand(carta);
+		  			over = false;
+		  		}
+		  	} else {
+//	  			console.log("MOVER (" + x + "," + y + ")");
+	  			that.gameboard.handboard.mover(cartaSeleccionada, x, y);
+	  		}
 		});
 		
 		$('#canvas').on("mousedown", function(event) {
@@ -637,6 +641,12 @@ var Game = function(partidaId) {
 			var y = event.pageY - offsetTop;
 
 			console.log("has clickado en (" + x + "," + y + ")");
+			carta = that.gameboard.handboard.inRegion(x,y);
+			if(carta){
+				cartaSeleccionada = carta;
+				seleccionada = true;
+				that.selectPlay(x,y);
+			}
 		});
 
 		$('#canvas').on("mouseup", function(event) {
@@ -644,16 +654,19 @@ var Game = function(partidaId) {
 			var y = event.pageY - offsetTop;
 
 			console.log("has soltado en (" + x + "," + y + ")");
+			if(cartaSeleccionada){
+				var accion = that.selectPlay(x,y);
+				console.log(accion);
+				seleccionada = false;
+			}
 		});
-
+/*
 		$('#canvas').click(function(event) {
 			var x = event.pageX - offsetLeft;
 			var y = event.pageY - offsetTop;
-//			console.log(this);
-//			console.log(that);
-//			console.log("--------------------------------");
 			that.selectPlay(x,y);
 		});
+*/
 	};
 
 	this.offListeners = function(){
@@ -674,9 +687,8 @@ var Game = function(partidaId) {
 		ctx.drawImage(that.fondo,0,0,1100,810);
 		that.gameboard.draw();
 
-//		console.log("[" + cursorX + "," + cursorY + "]");
 		if(!that.stop){
-			setTimeout(that.loop, 60);
+			setTimeout(that.loop, 30);
 		}
 	};
 };
