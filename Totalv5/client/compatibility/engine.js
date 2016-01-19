@@ -79,6 +79,7 @@ var Game = function(partidaId) {
 
 	this.updateAcciones = function(){
 		var acciones = Acciones.find({partidaId: this.partidaId}).fetch();
+		console.log(acciones);
 		if(acciones.length > 0){
       		for (i = 0; i < acciones.length;i++) {
       			this.processAccion(acciones[i]);
@@ -124,7 +125,8 @@ var Game = function(partidaId) {
 		var columna = -1;
 
 		if(accion[0] == null || (accion[1] == null && accion[2] == null && !accion[3])){
-			return;
+//			console.log("NO SE METE");
+			return false;
 		}
 		if(accion[3]){
 			action = "descartar";
@@ -144,22 +146,26 @@ var Game = function(partidaId) {
 
 		//METEOR CALL JUGAR CARTA
 		Meteor.call("jugarCarta",that.partidaId,action,carta,target, function(error,result) {
-			if(result != false){
-				console.log("------------------------");
-				console.log(result);
-				console.log(error);
-				console.log("------------------------");
-				//SI SE A JUGADO UNA CARTA DE DESCUBRIMIENTO, EL SERVER NOS DEVUELVE LA CARTA A DESTAPAR
-				if(result != true){
-					that.gameboard.board.list[fila][columna].setSprite(result.name);
+			if(!error){
+				if(result != false){
+					console.log("------------------------");
+					console.log(result);
+					console.log(error);
+					console.log("------------------------");
+					//SI SE A JUGADO UNA CARTA DE DESCUBRIMIENTO, EL SERVER NOS DEVUELVE LA CARTA A DESTAPAR
+					if(result != true){
+						that.gameboard.board.list[fila][columna].setSprite(result.name);
+					}
 				}
-				//SI SE HA PODIDO JUGAR LA CARTA, TENGO QUE ACTUALIZAR LA MANO.
-				var c = Caracteristicas.findOne({partidaId: that.partidaId,jugadorId: Meteor.userId()});
-				that.gameboard.handboard = new HandBoard(c.mano,c.roll);
-			}
+			};
+			//SI SE HA PODIDO JUGAR LA CARTA, TENGO QUE ACTUALIZAR LA MANO.
+			var c = Caracteristicas.findOne({partidaId: that.partidaId,jugadorId: Meteor.userId()});
+			that.gameboard.handboard = new HandBoard(c.mano,c.roll);
+
 			that.inProcess = false;
 		});
 		console.log("carta jugada");
+		return true;
 	};
 
 	//MANEJAR LOS CLICK SOBRE EL CANVAS
@@ -173,10 +179,14 @@ var Game = function(partidaId) {
 			this.stopGame();
 			loadCanvas(this.partidaId);
 		}else{
-//			console.log(accion);
-			this.processPlay(accion);
-			return accion;
+			console.log(accion);
+			var c = Caracteristicas.findOne({partidaId: that.partidaId,jugadorId: Meteor.userId()});
+			that.gameboard.handboard = new HandBoard(c.mano,c.roll);
+			return this.processPlay(accion);
+
+//			return accion;
 		}
+		return;
 	};
 
 	//MANEJAR LAS ACCIONES
@@ -252,7 +262,7 @@ var Game = function(partidaId) {
 			if(carta){
 				cartaSeleccionada = carta;
 				seleccionada = true;
-				that.selectPlay(x,y);
+//				var boleano = that.selectPlay(x,y);
 			}
 		});
 
@@ -262,8 +272,9 @@ var Game = function(partidaId) {
 
 			console.log("has soltado en (" + x + "," + y + ")");
 			if(cartaSeleccionada){
+				console.log("HAY CARTA SELECCIONADAAAAAAAAAAAA");
 				var accion = that.selectPlay(x,y);
-				console.log(accion);
+				console.log("mouseup " + accion);
 				seleccionada = false;
 			}
 		});
@@ -295,7 +306,7 @@ var Game = function(partidaId) {
 		that.gameboard.draw();
 
 		if(!that.stop){
-			setTimeout(that.loop, 30);
+			setTimeout(that.loop, 60);
 		}
 	};
 };

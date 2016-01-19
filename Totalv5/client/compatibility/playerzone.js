@@ -38,9 +38,9 @@ var PlayerZone = function(x,y,w,h){
 	};
 
 	this.drawObjects = function(){
-		SpriteSheet.draw(this.farol, this.x, this.y + (this.h / 2));
-		SpriteSheet.draw(this.vagon, this.x + 40, this.y + (this.h / 2));
-		SpriteSheet.draw(this.pico, this.x + 80, this.y + (this.h / 2));
+		SpriteSheet.draw(this.farol, this.x, this.y + (this.h / 2), 40, 40, false);
+		SpriteSheet.draw(this.vagon, this.x + 40, this.y + (this.h / 2), 40, 40, false);
+		SpriteSheet.draw(this.pico, this.x + 80, this.y + (this.h / 2), 40, 40, false);
 	};
 
 	this.draw = function(){

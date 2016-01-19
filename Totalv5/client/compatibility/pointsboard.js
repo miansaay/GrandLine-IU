@@ -4,6 +4,7 @@ var PointsBoard = function(names) {
 	this.list = new Array(names.length);
 
 	var aux = 180;
+
 	if(this.h / names.length < 180){
 		aux = this.h / names.length;
 	}
