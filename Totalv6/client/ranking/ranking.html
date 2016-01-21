@@ -1,0 +1,92 @@
+<template name="ranking">
+
+ <!-- <div id="botones_ranking" class="btn-group-vertical">
+ <button id="Boton_global" type="button"  class="btn btn-primary">global</button>
+ <button id="Boton_allien" type="button"  class="btn btn-primary">Allien</button>
+ <button id="Boton_saboteur" type="button" class="btn btn-primary">Saboteur</button>
+</div>  -->
+<div class="panel panel-default" id="cuadroRanking">
+   {{# if rankSelected }}
+		{{#if allien }}
+			{{> tablaespecif }}
+		{{/if}}
+		{{#if saboteur }}
+			{{> tablaespecif }}
+		{{/if}}
+		{{#if global }}
+			{{> tablaglobal }}
+		{{/if}}
+	{{else}}
+		{{> tablaglobal }}
+	{{/if}}
+
+</div>
+</template>
+
+<template name="tablaglobal" id="tableglobal">
+			<div class="panel-heading" id="HeadRanking">Ranking global</div>
+			<table class="table table-bordered">
+  				 <thead>
+			        <tr>
+			           
+			            <th>Posicion</th>
+			            <th>Foto</th>
+			            <th>Usuario</th>
+							<th>Puntos</th>
+							<th>Juego</th>
+							<th>Última partida</th>
+							<th>Pais</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+
+					 {{#each position2}}
+			        <tr>
+							<td>{{index}}</td>
+							<td>{{jugadorSelected2.imagen}}</td>
+							<td>{{jugadorSelected2.nick}}</td>
+			            <td>{{puntos}}</td>
+							<td>{{juego}}</td>
+							<td>{{ultpartida}}</td>
+							<td>{{jugadorSelected2.nacionalidad}}</td>
+
+			        </tr>
+					{{/each}}
+    			</tbody>
+			</table>
+</template>
+
+<template name="tablaespecif" id="tableespecif">
+			<div class="panel-heading">Ranking {{nombrejuego}}</div>
+			<table class="table table-bordered">
+  				 <thead>
+			        <tr>
+			           
+			            <th>Posicion</th>
+			            <th>Foto</th>
+			            <th>Usuario</th>
+							<th>Puntos</th>
+							<th>Juego</th>
+							<th>Última partida</th>
+							<th>Pais</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+					 {{setContador}}
+					 {{#each position}}
+					 
+			        <tr>
+							<td>{{showContador}}</td>
+							<td>{{jugadorSelected.imagen}}</td>
+							<td>{{jugadorSelected.nick}}</td>
+			            <td>{{puntos}}</td>
+							<td>{{juego}}</td>
+							<td>{{ultpartida}}</td>
+							<td>{{jugadorSelected.nacionalidad}}</td>
+			        </tr>
+					{{/each}}
+    			</tbody>
+			</table>
+</template>
+	
+
