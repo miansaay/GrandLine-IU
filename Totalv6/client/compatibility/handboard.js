@@ -4,7 +4,7 @@ var HandBoard = function(cardsHand,roll) {
 	this.initialize(0,630,900,180);
 	this.roll = roll;
 	this.seleccionada = false;
-	this.carta = undefined;
+	this.numCarta = undefined;
 
 	this.list = new Array(cardsHand.length+2);
 
@@ -57,21 +57,21 @@ var HandBoard = function(cardsHand,roll) {
 	};
 
 	//length - 2 !!!
-	this.updateHand = function(card, raton){
-		if(card && this.carta === undefined){
+	this.updateHand = function(card, raton, girar){
+		if(card && this.numCarta === undefined){
 			for (i = 0; i < this.list.length - 2; i++) {
 				if(this.list[i] == card){
 					if(raton){
 						//Cambia el tamaño de la carta si paso el raton por encima
 						//pongo a done el indice de la carta cambiada
 						this.list[i].setSize(72,108);
-						this.carta = i;	//0 es false
+						this.numCarta = i;	//0 es false
 					};
 				};
 			};
-		} else if(!card && this.carta > -1 && this.carta < this.list.length){
-			this.list[this.carta].setSize(60,90);
-			this.carta = undefined;
+		} else if(!card && this.numCarta > -1 && this.numCarta < this.list.length){
+			this.list[this.numCarta].setSize(60,90);
+			this.numCarta = undefined;
 		}
 	};
 

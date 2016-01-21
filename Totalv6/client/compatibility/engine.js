@@ -255,13 +255,13 @@ var Game = function(partidaId) {
 		  		carta = that.gameboard.handboard.inRegion(x,y);
 		  		if(carta && (!over)){
 		  			over = true;
-		 			that.gameboard.handboard.updateHand(carta, over);
+		 			that.gameboard.handboard.updateHand(carta, over, false);
 		  		} else if(!carta && over){
 		  			over = false;
-		  			that.gameboard.handboard.updateHand(carta, over);
+		  			that.gameboard.handboard.updateHand(carta, over, false);
 		  		}
 		  	} else {	//Solo entra si hay una carta seleccionada
-/*		  		if(!moviendo){
+		  		if(!moviendo){
 		  			// Creo una copia de la mano que tengo
 		  			console.log("Copio mazo");
 		  			mazoAux = new HandBoard(that.gameboard.handboard.list, that.gameboard.handboard.roll);
@@ -269,9 +269,9 @@ var Game = function(partidaId) {
 		  		};
 //	  			console.log("MOVER (" + x + "," + y + ")");
 				if(moviendo){
-	  				that.gameboard.handboard.mover(cartaSeleccionada, x, y);
+					console.log("moviendo la carta");
+//	  				that.gameboard.handboard.mover(cartaSeleccionada, x, y);
 	  			}
-*/
 	  		}
 		});
 		
@@ -285,6 +285,23 @@ var Game = function(partidaId) {
 			if(carta){
 				cartaSeleccionada = that.gameboard.handboard.seleccionar(carta);
 			}
+
+		});
+
+		$('#canvas').on("dblclick", function(event){
+			event.preventDefault();
+			var x = event.pageX - offsetLeft;
+			var y = event.pageY - offsetTop;
+
+			if(!moviendo){
+				console.log("double click");
+			}
+/*			carta = that.gameboard.handboard.inRegion(x,y);
+			if(carta){
+				var girar = true;
+				that.gameboard.handboard.updateHand(carta, false, girar);
+			};
+*/
 		});
 
 		$('#canvas').on("mouseup", function(event) {
@@ -299,7 +316,9 @@ var Game = function(partidaId) {
 				that.gameboard.handboard.soltar(cartaSeleccionada);
 				cartaSeleccionada = null;
 				over = false;
-				that.gameboard.handboard.updateHand(cartaSeleccionada, over);
+			}
+			if(moviendo){
+				that.gameboard.handboard.updateHand(cartaSeleccionada, over, false);
 			}
 		});
 	};
