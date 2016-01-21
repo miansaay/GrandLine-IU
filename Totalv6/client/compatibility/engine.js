@@ -319,6 +319,7 @@ var Game = function(partidaId) {
 			}
 			if(moviendo){
 				that.gameboard.handboard.updateHand(cartaSeleccionada, over, false);
+				moviendo = false;
 			}
 		});
 	};
