@@ -1,21 +1,29 @@
-//RECTANGULOS
+//Funcion para limpiar el canvas
+function clearCanvas(canvas){
+	canvas.width = canvas.width; //Dumb way to clear canvas
+};
+
+//Dibuja texto
 function drawText(text,color,tipo,x,y){
 	ctx.fillStyle = color;
 	ctx.font = tipo;
 	ctx.fillText(text,x,y);
 };
 
+//Dibuja rectancgulos
 function drawRect(color,x,y,w,h){
 	ctx.strokeStyle = color;
   	ctx.lineWidth = 1;
 	ctx.strokeRect(x,y,w,h);
 };
 
+//Rellena rectangulos
 function fillRect(color,x,y,w,h){
 	ctx.fillStyle = color;
 	ctx.fillRect(x,y,w,h);
 }
 
+//Para el sistema durante los milisegundos especificados
 function sleep(milliseconds) {
   var start = new Date().getTime();
   for (var i = 0; i < 1e7; i++) {
@@ -235,25 +243,35 @@ var Game = function(partidaId) {
 		var seleccionada = false;
 		var carta = null;
 		var cartaSeleccionada = null;
+		var moviendo = false;
+		var mazoAux = new Array(that.gameboard.handboard.length);
 
 		$('#canvas').on( "mousemove", function( event ) {
 			event.preventDefault();
 	  		var x = event.pageX - offsetLeft;
 	  		var y = event.pageY - offsetTop;
 
-	  		if(!seleccionada){
+	  		if(!cartaSeleccionada){
 		  		carta = that.gameboard.handboard.inRegion(x,y);
 		  		if(carta && (!over)){
 		  			over = true;
 		 			that.gameboard.handboard.updateHand(carta, over);
-		  		} else if(!carta){
+		  		} else if(!carta && over){
 		  			over = false;
 		  			that.gameboard.handboard.updateHand(carta, over);
 		  		}
-		  	} else {
+		  	} else {	//Solo entra si hay una carta seleccionada
+/*		  		if(!moviendo){
+		  			// Creo una copia de la mano que tengo
+		  			console.log("Copio mazo");
+		  			mazoAux = new HandBoard(that.gameboard.handboard.list, that.gameboard.handboard.roll);
+		  			moviendo = true;
+		  		};
 //	  			console.log("MOVER (" + x + "," + y + ")");
-
-//	  			that.gameboard.handboard.mover(cartaSeleccionada, x, y);
+				if(moviendo){
+	  				that.gameboard.handboard.mover(cartaSeleccionada, x, y);
+	  			}
+*/
 	  		}
 		});
 		
@@ -265,7 +283,6 @@ var Game = function(partidaId) {
 //			console.log("has clickado en (" + x + "," + y + ")");
 			carta = that.gameboard.handboard.inRegion(x,y);
 			if(carta){
-				seleccionada = true;
 				cartaSeleccionada = that.gameboard.handboard.seleccionar(carta);
 			}
 		});
@@ -276,20 +293,15 @@ var Game = function(partidaId) {
 			var y = event.pageY - offsetTop;
 
 //			console.log("has soltado en (" + x + "," + y + ")");
-			if(seleccionada){
+			if(cartaSeleccionada){
 //				var accion = that.selectPlay(x,y);
 //				console.log("mouseup " + accion);
 				that.gameboard.handboard.soltar(cartaSeleccionada);
-				seleccionada = false;
+				cartaSeleccionada = null;
+				over = false;
+				that.gameboard.handboard.updateHand(cartaSeleccionada, over);
 			}
 		});
-/*
-		$('#canvas').click(function(event) {
-			var x = event.pageX - offsetLeft;
-			var y = event.pageY - offsetTop;
-			that.selectPlay(x,y);
-		});
-*/
 	};
 
 	this.offListeners = function(){
@@ -306,12 +318,14 @@ var Game = function(partidaId) {
 			that.offListeners();
 			that.handlers = false;
 		}
+		
+		clearCanvas(canvas);
 
 		ctx.drawImage(that.fondo,0,0,1100,810);
 		that.gameboard.draw();
 
 		if(!that.stop){
-			setTimeout(that.loop, 60);
+			setTimeout(that.loop, 60);		// MIRAR COMO CAMBIAR ESTO A FPS
 		}
 	};
 };

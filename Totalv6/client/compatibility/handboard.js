@@ -3,6 +3,7 @@ var HandBoard = function(cardsHand,roll) {
 	BaseClass.call(this);
 	this.initialize(0,630,900,180);
 	this.roll = roll;
+	this.seleccionada = false;
 	this.carta = undefined;
 
 	this.list = new Array(cardsHand.length+2);
@@ -19,27 +20,40 @@ var HandBoard = function(cardsHand,roll) {
 	this.list[i] = new Card((i*90)+40,this.y + 50);
 	this.list[i].setText("GIRAR");
 
-	//MARCA COMO SELECCIONADA UNA CARTA Y DEVUELVE SU NUMERO
+	//MARCA COMO SELECCIONADA UNA CARTA Y DEVUELVE SU NUMERO o null
 	this.seleccionar = function(card){
 		for (i = 0; i < this.list.length; i++){
 			if(card == this.list[i]){
 				this.list[i].seleccionada = true;
+				this.seleccionada = true;
 				console.log("Carta " + i + " seleccionada");
-				return i;
+				return this.list[i];
 			}
 		};
+		return null;
 	};
 
 	//VUELVE AL ESTADO this.selected = false DE UNA CARTA CONCRETA (recibe el indice de la carta)
 	//Solo es llamado si hay una carta seleccionada previamente 
 	//(Salta la carta no estaba seleccionada con PASAR Y GIRAR)
-	this.soltar = function(numCarta){
-		if(this.list[numCarta].seleccionada == true){
-			this.list[numCarta].seleccionada = false;
-			console.log("Carta " + numCarta + " soltada");
-		} else {
-			console.log("la carta no estaba seleccionada");
-		}
+	this.soltar = function(card){
+		var numCarta = null;
+		for(i = 0; i < this.list.length; i++){
+			if(card == this.list[i]){
+				numCarta = i;
+				break;
+			};
+		};
+		if(numCarta > -1 && numCarta < this.list.length){
+			if(this.list[numCarta].seleccionada == true){
+				this.list[numCarta].seleccionada = false;
+				this.seleccionada = false;
+				console.log("Carta " + numCarta + " soltada");
+				return null;
+			} else {
+				console.log("la carta no estaba seleccionada");
+			};
+		};
 	};
 
 	//length - 2 !!!
@@ -63,13 +77,10 @@ var HandBoard = function(cardsHand,roll) {
 
 	//length - 2 !!!
 	this.mover = function(card,x,y){
-		for(i = 0; i < this.list.length - 2; i++){
-			if(this.list[i] == card){
-//				console.log("muevo a: (" + card.x + "," + card.y + ")");
-				this.list[i].setCoord(x,y);
-			}
-		}
-	}
+		if(this.seleccionada){
+			
+		};
+	};
 
 	this.inRegion = function(x,y){
 		for (i = 0; i < this.list.length; i++) {
