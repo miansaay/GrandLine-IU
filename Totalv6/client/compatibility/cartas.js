@@ -26,6 +26,7 @@ var Card = function(x,y) {
 	};
 
 	this.girar = function(){
+		// HAY QUE MODIFICAR ESTO PARA QUE SOLO SE PUEDAN GIRAR CAMIN... Y SINCAMIN....
 		this.girada = !this.girada;
 	};
 

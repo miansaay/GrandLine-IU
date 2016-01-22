@@ -46,6 +46,10 @@ var SpriteSheet = new function () {
 	};
 
 	this.draw = function(sprite, x, y, w, h, girada) {
+/*		console.log("--------------------");
+		console.log(sprite);
+		console.log("............................");
+*/
 		var img = this.map[sprite];
 		ctx.save();
 		if(girada){
@@ -245,6 +249,7 @@ var Game = function(partidaId) {
 		var cartaSeleccionada = null;
 		var moviendo = false;
 		var mazoAux = new Array(that.gameboard.handboard.length);
+		var accion = true;
 
 		$('#canvas').on( "mousemove", function( event ) {
 			event.preventDefault();
@@ -263,14 +268,13 @@ var Game = function(partidaId) {
 		  	} else {	//Solo entra si hay una carta seleccionada
 		  		if(!moviendo){
 		  			// Creo una copia de la mano que tengo
-		  			console.log("Copio mazo");
-		  			mazoAux = new HandBoard(that.gameboard.handboard.list, that.gameboard.handboard.roll);
+		  			mazoAux = that.gameboard.handboard.copiar();
 		  			moviendo = true;
+//		  			console.log(mazoAux);
 		  		};
 //	  			console.log("MOVER (" + x + "," + y + ")");
 				if(moviendo){
-					console.log("moviendo la carta");
-//	  				that.gameboard.handboard.mover(cartaSeleccionada, x, y);
+	  				that.gameboard.handboard.mover(cartaSeleccionada, x, y);
 	  			}
 	  		}
 		});
@@ -293,15 +297,13 @@ var Game = function(partidaId) {
 			var x = event.pageX - offsetLeft;
 			var y = event.pageY - offsetTop;
 
-			if(!moviendo){
-				console.log("double click");
-			}
-/*			carta = that.gameboard.handboard.inRegion(x,y);
+			console.log("double click");
+			carta = that.gameboard.handboard.inRegion(x,y);
 			if(carta){
 				var girar = true;
+				console.log("double click en " + carta.sprite);	//Bien
 				that.gameboard.handboard.updateHand(carta, false, girar);
 			};
-*/
 		});
 
 		$('#canvas').on("mouseup", function(event) {
@@ -311,13 +313,17 @@ var Game = function(partidaId) {
 
 //			console.log("has soltado en (" + x + "," + y + ")");
 			if(cartaSeleccionada){
-//				var accion = that.selectPlay(x,y);
-//				console.log("mouseup " + accion);
 				that.gameboard.handboard.soltar(cartaSeleccionada);
 				cartaSeleccionada = null;
 				over = false;
 			}
 			if(moviendo){
+//				var accion = that.selectPlay(x,y);
+// 				por ahora vuelvo a su lugar original
+//				hay que tocar selectplay
+				if(accion){
+					that.gameboard.handboard = mazoAux;
+				}
 				that.gameboard.handboard.updateHand(cartaSeleccionada, over, false);
 				moviendo = false;
 			}
@@ -345,7 +351,7 @@ var Game = function(partidaId) {
 		that.gameboard.draw();
 
 		if(!that.stop){
-			setTimeout(that.loop, 60);		// MIRAR COMO CAMBIAR ESTO A FPS
+			setTimeout(that.loop, 30);		// MIRAR COMO CAMBIAR ESTO A FPS
 		}
 	};
 };

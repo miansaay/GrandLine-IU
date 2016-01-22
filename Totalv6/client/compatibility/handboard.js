@@ -1,4 +1,6 @@
 // HAND CARDS
+//Al crear este objeto cardsHand ha de ser un array de SPRITES con los nombres de las cartas
+//No un mazo como tal (handsBoard ya lo es)
 var HandBoard = function(cardsHand,roll) {
 	BaseClass.call(this);
 	this.initialize(0,630,900,180);
@@ -6,19 +8,32 @@ var HandBoard = function(cardsHand,roll) {
 	this.seleccionada = false;
 	this.numCarta = undefined;
 
-	this.list = new Array(cardsHand.length+2);
+	this.list = new Array(cardsHand.length);
 
 	for (i = 0; i < cardsHand.length; i++) {
 		this.list[i] = new Card((i*90)+40,this.y + 50);
 		this.list[i].setSprite(cardsHand[i]);
 	};
-	this.list[i] = new Card((i*90)+40,this.y + 50);
+
+	//ELIMINO POR AHORA ESTAS 2 CARTAS
+/*	this.list[i] = new Card((i*90)+40,this.y + 50);
 	this.list[i].setSprite("CaminoAtras");
 	this.list[i].setText("PASAR");
 	i = i + 1;
 	
 	this.list[i] = new Card((i*90)+40,this.y + 50);
 	this.list[i].setText("GIRAR");
+*/
+
+	//Devuelve una copia de este objeto
+	this.copiar = function(){
+		var sprites = new Array(this.list.length);
+		for(i = 0; i < this.list.length; i++){
+			sprites[i] = this.list[i].sprite;
+		}
+		mazoAux = new HandBoard(sprites, this.roll);
+		return mazoAux;
+	};
 
 	//MARCA COMO SELECCIONADA UNA CARTA Y DEVUELVE SU NUMERO o null
 	this.seleccionar = function(card){
@@ -58,8 +73,11 @@ var HandBoard = function(cardsHand,roll) {
 
 	//length - 2 !!!
 	this.updateHand = function(card, raton, girar){
+		if(girar){
+			card.girar();
+		};
 		if(card && this.numCarta === undefined){
-			for (i = 0; i < this.list.length - 2; i++) {
+			for (i = 0; i < this.list.length; i++) {
 				if(this.list[i] == card){
 					if(raton){
 						//Cambia el tamaño de la carta si paso el raton por encima
@@ -75,10 +93,15 @@ var HandBoard = function(cardsHand,roll) {
 		}
 	};
 
-	//length - 2 !!!
+	//redibujo en las nuevas coordenadas
+	// Antes está copiada la mano por si acaso no puedo jugar la carta al soltarla
 	this.mover = function(card,x,y){
 		if(this.seleccionada){
-			
+//			console.log("muevo");
+			card.x = x;
+			card.y = y;
+//			clearCanvas(canvas);
+//			card.draw();
 		};
 	};
 
