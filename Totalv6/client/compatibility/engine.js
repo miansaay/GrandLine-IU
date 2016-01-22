@@ -279,7 +279,7 @@ var Game = function(partidaId) {
 	  			}
 	  		}
 		});
-		
+
 		$('#canvas').on("mousedown", function(event) {
 			event.preventDefault();
 			var x = event.pageX - offsetLeft;
@@ -289,6 +289,8 @@ var Game = function(partidaId) {
 			carta = that.gameboard.handboard.inRegion(x,y);
 			if(carta){
 				cartaSeleccionada = that.gameboard.handboard.seleccionar(carta);
+				var audio = new buzz.sound('audio/carta.mp3');
+				audio.play();
 			}
 
 		});
@@ -317,6 +319,7 @@ var Game = function(partidaId) {
 				that.gameboard.handboard.soltar(cartaSeleccionada);
 				cartaSeleccionada = null;
 				over = false;
+				audio.stop();
 			}
 			if(moviendo){
 //				var accion = that.selectPlay(x,y);
@@ -348,7 +351,7 @@ var Game = function(partidaId) {
 			that.offListeners();
 			that.handlers = false;
 		}
-		
+
 		clearCanvas(canvas);
 
 		ctx.drawImage(that.fondo,0,0,1100,810);

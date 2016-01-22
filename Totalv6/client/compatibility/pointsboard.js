@@ -31,6 +31,7 @@ var PointsBoard = function(names) {
 				this.list[i].changeObject(objeto);
 			}
 		};
+		sonido.stop();
 	};
 
 	this.selectTarget = function(x,y){

@@ -16,6 +16,8 @@ var PlayerZone = function(x,y,w,h){
 			case "farolillo":
 				if(this.farol == "FarolOk"){
 					this.farol = "FarolNo";
+					sonido = new buzz.sound('audio/falroto.mp3');
+					sonido.play();
 				}else{
 					this.farol = "FarolOk";
 				}
@@ -23,6 +25,8 @@ var PlayerZone = function(x,y,w,h){
 			case "vagoneta":
 				if(this.vagon == "VagonOk"){
 					this.vagon = "VagonNo";
+					sonido = new buzz.sound('audio/vagoneta.mp3');
+					sonido.play();
 				}else{
 					this.vagon = "VagonOk";
 				}
@@ -30,6 +34,8 @@ var PlayerZone = function(x,y,w,h){
 			case "pico":
 				if(this.pico == "PicoOk"){
 					this.pico = "PicoNo";
+					sonido = new buzz.sound('audio/pico.mp3');
+					sonido.play();
 				}else{
 					this.pico = "PicoOk";
 				}
