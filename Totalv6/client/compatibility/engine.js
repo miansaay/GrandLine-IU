@@ -268,6 +268,7 @@ var Game = function(partidaId) {
 		  	} else {	//Solo entra si hay una carta seleccionada
 		  		if(!moviendo){
 		  			// Creo una copia de la mano que tengo
+		  			console.log("creo copia");
 		  			mazoAux = that.gameboard.handboard.copiar();
 		  			moviendo = true;
 //		  			console.log(mazoAux);
@@ -321,8 +322,11 @@ var Game = function(partidaId) {
 //				var accion = that.selectPlay(x,y);
 // 				por ahora vuelvo a su lugar original
 //				hay que tocar selectplay
+				console.log(mazoAux);
+				console.log(that.gameboard.handboard);
 				if(accion){
-					that.gameboard.handboard = mazoAux;
+					console.log("restauro");
+					that.gameboard.handboard = mazoAux.copiar();
 				}
 				that.gameboard.handboard.updateHand(cartaSeleccionada, over, false);
 				moviendo = false;

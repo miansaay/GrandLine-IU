@@ -1,6 +1,4 @@
 // HAND CARDS
-//Al crear este objeto cardsHand ha de ser un array de SPRITES con los nombres de las cartas
-//No un mazo como tal (handsBoard ya lo es)
 var HandBoard = function(cardsHand,roll) {
 	BaseClass.call(this);
 	this.initialize(0,630,900,180);
@@ -8,12 +6,19 @@ var HandBoard = function(cardsHand,roll) {
 	this.seleccionada = false;
 	this.numCarta = undefined;
 
+	//Comprobante para ver si me han entregado simplemente sprites, o un mazo con cartas
+	//en cardHands
 	this.list = new Array(cardsHand.length);
-
 	for (i = 0; i < cardsHand.length; i++) {
 		this.list[i] = new Card((i*90)+40,this.y + 50);
-		this.list[i].setSprite(cardsHand[i]);
+		if(typeof cardsHand[i] == 'string'){
+			this.list[i].setSprite(cardsHand[i]);
+		} else {
+			this.list[i].setSprite(cardsHand[i].sprite);
+			this.list[i].girada = cardsHand[i].girada;
+		};
 	};
+
 
 	//ELIMINO POR AHORA ESTAS 2 CARTAS
 /*	this.list[i] = new Card((i*90)+40,this.y + 50);
@@ -27,12 +32,7 @@ var HandBoard = function(cardsHand,roll) {
 
 	//Devuelve una copia de este objeto
 	this.copiar = function(){
-		var sprites = new Array(this.list.length);
-		for(i = 0; i < this.list.length; i++){
-			sprites[i] = this.list[i].sprite;
-		}
-		mazoAux = new HandBoard(sprites, this.roll);
-		return mazoAux;
+		return new HandBoard(this.list, this.roll);
 	};
 
 	//MARCA COMO SELECCIONADA UNA CARTA Y DEVUELVE SU NUMERO o null
