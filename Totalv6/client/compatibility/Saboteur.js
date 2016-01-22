@@ -13,7 +13,7 @@ var sprites = {
 	Camino2:			{sx: 0, sy: 90, w: 60, h: 90, frames: 0},
 	Camino3:			{sx: 0, sy: 90, w: 60, h: 90, frames: 1},
 	Camino4:			{sx: 0, sy: 90, w: 60, h: 90, frames: 2},
-	Camino5:			{sx: 0, sy: 90, w: 60, h: 90, frames: 3},	
+	Camino5:			{sx: 0, sy: 90, w: 60, h: 90, frames: 3},
 	Camino6:			{sx: 0, sy: 90, w: 60, h: 90, frames: 4},
 	Camino7:			{sx: 0, sy: 90, w: 60, h: 90, frames: 5},
 
@@ -90,14 +90,18 @@ var loadCanvas = function(partidaId){
 		canvas = document.getElementById('canvas');
 		offsetLeft = $(canvas).offset().left;
 		offsetTop = $(canvas).offset().top;
+		var audio = new buzz.sound('audio/barajar.mp3');
+		audio.play();
 		ctx = canvas.getContext && canvas.getContext("2d");
 		canvas.width = 1100;
 		canvas.height = 810;
+		//audio.stop();
+
 	}
 
 	var p = Partidas.findOne({_id: partidaId});
 	var c = Caracteristicas.findOne({partidaId: partidaId,jugadorId: Meteor.userId()});
-	
+
 	var newGame = new Game(partidaId);
 	newGame.initialize(sprites,"sprites/sprites.png",p.listaJugadores,c.mano,c.roll);
 
@@ -163,4 +167,3 @@ var stopAll = function(accionTracker,turnoTracker){
 	$(".total-board").off();
 	$('#canvas').off();
 };
-
