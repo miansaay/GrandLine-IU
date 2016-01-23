@@ -25,7 +25,7 @@ var HandBoard = function(cardsHand,roll) {
 	this.list[i].setSprite("CaminoAtras");
 	this.list[i].setText("PASAR");
 	i = i + 1;
-	
+
 	this.list[i] = new Card((i*90)+40,this.y + 50);
 	this.list[i].setText("GIRAR");
 */
@@ -49,7 +49,7 @@ var HandBoard = function(cardsHand,roll) {
 	};
 
 	//VUELVE AL ESTADO this.selected = false DE UNA CARTA CONCRETA (recibe el indice de la carta)
-	//Solo es llamado si hay una carta seleccionada previamente 
+	//Solo es llamado si hay una carta seleccionada previamente
 	//(Salta la carta no estaba seleccionada con PASAR Y GIRAR)
 	this.soltar = function(card){
 		var numCarta = null;

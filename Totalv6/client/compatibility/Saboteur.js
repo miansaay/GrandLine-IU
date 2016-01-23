@@ -82,8 +82,11 @@ var sprites = {
 
 };
 
+var sound = new buzz.sound('audio/introJuego2.wav');
+sound.loop().play();
 
 var loadCanvas = function(partidaId){
+	sound.unloop().stop();
 	$(".total-board").show();
   	$(".match-board").show();
   	if(!canvas){
