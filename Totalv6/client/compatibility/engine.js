@@ -289,7 +289,7 @@ var Game = function(partidaId) {
 			carta = that.gameboard.handboard.inRegion(x,y);
 			if(carta){
 				cartaSeleccionada = that.gameboard.handboard.seleccionar(carta);
-			  audio = new buzz.sound('audio/carta2.mp3');
+			  audio = new buzz.sound('audio/carta3.mp3');
 				audio.play();
 			}
 
@@ -319,7 +319,7 @@ var Game = function(partidaId) {
 				that.gameboard.handboard.soltar(cartaSeleccionada);
 				cartaSeleccionada = null;
 				over = false;
-				var audio = new buzz.sound('audio/carta2.mp3');
+				var audio = new buzz.sound('audio/carta3.mp3');
 				audio.play();
 				//audio.stop();
 			}
