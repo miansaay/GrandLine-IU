@@ -1,0 +1,71 @@
+
+
+<template name="saboteur_temp">
+	<div class="total-board" hidden></div>	
+	<div class="match-board" hidden>
+		<canvas id="canvas"></canvas>
+	</div>
+
+
+	<div id="tabs">
+		<ul class="tab_links">
+			<li class="active"><a href="#partidas" data-toggle="tab" class="btn">Partidas</a></li>
+			<li><a href="#mis_partidas" data-toggle="tab" class="btn">Mis Partidas</a></li>
+			<li><a href="#crear_partida" data-toggle="tab" class="btn">Crear Partida</a></li>
+		</ul>
+		<div class="tab_content">
+			<div id="partidas" class="tab active">
+				<h3>Partidas disponibles</h3>
+				<div class="lista_partidas">
+					{{#each match}}
+						<li >
+							<p class="match"> <span class="titulo">{{titulo}}</span> 
+								<span class="lista-jug">[{{listaJugadores}}]</span></p>
+							<p class="medida">{{measure}}</p>
+							{{#if userInMatch}}
+								<button type="button" id="unirse-partida" class="boton">Unirse</button>
+							{{/if}}	
+						</li>
+					{{/each}}
+				</div>	
+			</div>
+			<div id="mis_partidas" class="tab">
+				<h3>Mis partidas sin lanzar</h3>
+				<div class="lista_partidas">
+					{{#each mymatch}}
+						<li>
+							<p class="match"> <span class="titulo">{{titulo}}</span> 
+								<span class="lista-jug">[{{listaJugadores}}]</span></p><p class="medida">{{measure}}</p>
+							{{#if startMatch}}
+								<button type="button" class="boton" id="empezar-partida">Comenzar Partida</button>
+							{{/if}}
+						</li>
+					{{/each}}
+
+				</div>
+				<div class="lista_partidas">
+					<h3>Partidas Lanzadas</h3>
+					{{#each mystartedMatch}}
+						<li>
+							<p class="match"> <span class="titulo">{{titulo}}</span> 
+								<span class="lista-jug">[{{listaJugadores}}]</span></p> <p class="medida">{{measure}}</p>
+							<button type="button" class="boton" id="entrar-partida"> Enter Match </button>
+						</li>
+					{{/each}}
+				</div>	
+			</div>
+			<div id="crear_partida" class="tab">
+				<h3>Crear partida</h3>
+				<form>
+		    		<input type="text" name="titulo" placeholder="Titulo Partida" required />
+		    		<input type="number" name="numJugadores"  min="2" max="10" required />
+		   			<button id="crear_partida" class="boton" type="submit">Crear Partida</button>
+		   		</form>
+			</div>
+		</div>
+	</div>
+
+	
+
+</template>
+
