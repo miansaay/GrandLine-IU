@@ -143,9 +143,9 @@ var Game = function(partidaId) {
 		var target = accion[2];
 		var fila = -1;
 		var columna = -1;
-		
+
 		console.log(accion)
-		
+
 
 		if(accion[0] == null || (accion[1] == null && accion[2] == null && !accion[3])){
 			return false;
@@ -261,7 +261,7 @@ var Game = function(partidaId) {
 			event.preventDefault();
 	  		var x = event.pageX - offsetLeft;
 	  		var y = event.pageY - offsetTop;
-	  		
+
 
 	  		if(!cartaSeleccionada){
 		  		carta = that.gameboard.handboard.inRegion(x,y);
@@ -286,25 +286,27 @@ var Game = function(partidaId) {
 	  			}
 	  		}
 		});
-		
+
 		$('#canvas').on("mousedown", function(event) {
 			event.preventDefault();
 			var x = event.pageX - offsetLeft;
 			var y = event.pageY - offsetTop;
 
-			
+
 
 			//console.log("has clickado en (" + x + "," + y + ")");
 			//carta = that.gameboard.handboard.inRegion(x,y);
 
-			
+
 			console.log("Distancia ( " + distanciax + "," + distanciay + ")");
-			
+
 			if(carta){
 				distanciax=(x-carta.x);
 				distanciay=(y-carta.y);
 
 				cartaSeleccionada = that.gameboard.handboard.seleccionar(carta);
+				audio = new buzz.sound('audio/carta3.mp3');
+				audio.play();
 			}
 
 		});
@@ -343,11 +345,13 @@ var Game = function(partidaId) {
 				that.gameboard.handboard.soltar(cartaSeleccionada);
 				cartaSeleccionada = null;
 				over = false;
+				var audio = new buzz.sound('audio/carta3.mp3');
+				audio.play();
 			}
 
 			var accion = that.selectPlay(x,y);
 			 if(moviendo){
-				
+
 	// 				por ahora vuelvo a su lugar original
 	//				hay que tocar selectplay
 				//console.log(mazoAux);
@@ -376,7 +380,7 @@ var Game = function(partidaId) {
 			that.offListeners();
 			that.handlers = false;
 		}
-		
+
 		clearCanvas(canvas);
 
 		ctx.drawImage(that.fondo,0,0,1100,810);
