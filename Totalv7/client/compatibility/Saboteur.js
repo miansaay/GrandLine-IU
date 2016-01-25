@@ -81,12 +81,9 @@ var sprites = {
 	Buscador:  			{sx: 0, sy: 360, w: 60, h: 90, frames: 0},
 
 };
-//Mejor quitamos la música de intro, se hace muy pesada.
-//var sound = new buzz.sound('audio/introJuego2.wav');
-//sound.loop().play();
+
 
 var loadCanvas = function(partidaId){
-	//sound.unloop().stop();
 	$(".total-board").show();
   	$(".match-board").show();
   	if(!canvas){
