@@ -81,24 +81,24 @@ var sprites = {
 	Buscador:  			{sx: 0, sy: 360, w: 60, h: 90, frames: 0},
 
 };
-
-var sound = new buzz.sound('audio/introJuego2.wav');
-sound.loop().play();
+//Mejor quitamos la música de intro, se hace muy pesada.
+//var sound = new buzz.sound('audio/introJuego2.wav');
+//sound.loop().play();
 
 var loadCanvas = function(partidaId){
-	sound.unloop().stop();
+	//sound.unloop().stop();
 	$(".total-board").show();
   	$(".match-board").show();
   	if(!canvas){
-		canvas = document.getElementById('canvas');
-		offsetLeft = $(canvas).offset().left;
-		offsetTop = $(canvas).offset().top;
-		var audio = new buzz.sound('audio/barajar.mp3');
-		audio.play();
-		ctx = canvas.getContext && canvas.getContext("2d");
-		canvas.width = 1100;
-		canvas.height = 810;
-	}
+			canvas = document.getElementById('canvas');
+			offsetLeft = $(canvas).offset().left;
+			offsetTop = $(canvas).offset().top;
+			var audio = new buzz.sound('audio/barajar.mp3');
+			audio.play();
+			ctx = canvas.getContext && canvas.getContext("2d");
+			canvas.width = 1100;
+			canvas.height = 810;
+		}
 
 	var p = Partidas.findOne({_id: partidaId});
 	var c = Caracteristicas.findOne({partidaId: partidaId,jugadorId: Meteor.userId()});
