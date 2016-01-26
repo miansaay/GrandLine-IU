@@ -18,7 +18,7 @@ var canvasFinal = function(tipoGanador) {
 		this.ganadores = ganadores;
 	};
 
-	this.inRegion = function(x,y){
+	this.inRegion = function(carta,x,y){
 		//AUX = [X,Y,W,H]
 		var aux = [400,100,300,50];
 		if(x >= aux[0] && x < aux[0] + aux[2] && y >= aux[1] && y < aux[1] + aux[3]){

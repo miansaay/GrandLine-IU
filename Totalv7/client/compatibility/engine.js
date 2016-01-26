@@ -118,6 +118,7 @@ var Game = function(partidaId) {
 	//SI SE HACE CLICK FUERA DEL CANVAS DE PARA TODOS LOS LISTENER Y EL GAME
 	this.stopGame = function(){
 		this.stop = true;
+		this.offListeners();
 		stopAll(this.accionTracker,this.turnoTracker);
 	};
 
@@ -144,7 +145,8 @@ var Game = function(partidaId) {
 		var fila = -1;
 		var columna = -1;
 
-		console.log(accion)
+//		console.log("ACCION EN PROCCESS PLAY");
+//		console.log(accion)
 
 
 		if(accion[0] == null || (accion[1] == null && accion[2] == null && !accion[3])){
@@ -170,9 +172,9 @@ var Game = function(partidaId) {
 		Meteor.call("jugarCarta",that.partidaId,action,carta,target, function(error,result) {
 			if(!error){
 				if(result != false){
-					console.log("------------------------");
-					console.log(result);
-					console.log("------------------------");
+//					console.log("------------------------");
+//					console.log(result);
+//					console.log("------------------------");
 					//SI SE A JUGADO UNA CARTA DE DESCUBRIMIENTO, EL SERVER NOS DEVUELVE LA CARTA A DESTAPAR
 					if(result != true){
 						that.gameboard.board.list[fila][columna].setSprite(result.name);
@@ -189,19 +191,18 @@ var Game = function(partidaId) {
 	};
 
 	//MANEJAR LOS CLICK SOBRE EL CANVAS
-	this.selectPlay = function(x,y){
+	this.selectPlay = function(carta, x,y){
 		//SI NO ES MI TURNO Y INPROCESS = 1 RETURN.
 		if(!this.isMyTurn || this.inProcess){
 			return;
 		}
-		var accion = this.gameboard.inRegion(x,y);
-		console.log(accion)
+		var accion = this.gameboard.inRegion(carta, x, y);
+		console.log("ACCION EN SELECTPLAY");
+		console.log(accion);
 		if(accion == true){
 			this.stopGame();
 			loadCanvas(this.partidaId);
 		}else{
-			var c = Caracteristicas.findOne({partidaId: that.partidaId,jugadorId: Meteor.userId()});
-			that.gameboard.handboard = new HandBoard(c.mano,c.roll);
 			return this.processPlay(accion);
 		}
 
@@ -226,11 +227,15 @@ var Game = function(partidaId) {
 				that.gameboard.board.list[accion.carta.fila][accion.carta.columna].setSprite("Standard");
 				break;
 			case "finalRonda":
+				console.log("FINAL DE LA RONDA");
+				that.offListeners();
 				that.isMyTurn = true;
 				that.gameboard = new canvasFinal(accion.tipoGanador);
 				break;
 			case "finalPartida":
+				console.log("FINAL DE LA PARTIDA");
 				that.isMyTurn = true;
+				that.offListeners();
 				that.gameboard = new canvasFinal(accion.tipoGanador);
 				that.gameboard.setGanadores(accion.ganadores);
 				break;
@@ -245,6 +250,8 @@ var Game = function(partidaId) {
 		}
 	};
 
+	//ACTIVA LOS LISTENERS CUANDO HA TERMINADO LA RONDA
+	//LUEGO DA ERROR EL CANVAS FINAL
 	this.onListeners = function(){
 		console.log("AGREGO LISTENERS");
 		var over = false;
@@ -275,12 +282,9 @@ var Game = function(partidaId) {
 		  	} else {	//Solo entra si hay una carta seleccionada
 		  		if(!moviendo){
 		  			// Creo una copia de la mano que tengo
-		  			console.log("creo copia");
 		  			mazoAux = that.gameboard.handboard.copiar();
 		  			moviendo = true;
-//		  			console.log(mazoAux);
 		  		};
-//	  			console.log("MOVER (" + x + "," + y + ")");
 				if(moviendo){
 	  				that.gameboard.handboard.mover(cartaSeleccionada, x-distanciax, y-distanciay);
 	  			}
@@ -291,14 +295,6 @@ var Game = function(partidaId) {
 			event.preventDefault();
 			var x = event.pageX - offsetLeft;
 			var y = event.pageY - offsetTop;
-
-
-
-			//console.log("has clickado en (" + x + "," + y + ")");
-			//carta = that.gameboard.handboard.inRegion(x,y);
-
-
-			console.log("Distancia ( " + distanciax + "," + distanciay + ")");
 
 			if(carta){
 				distanciax=(x-carta.x);
@@ -316,11 +312,9 @@ var Game = function(partidaId) {
 			var x = event.pageX - offsetLeft;
 			var y = event.pageY - offsetTop;
 
-			console.log("double click");
 			carta = that.gameboard.handboard.inRegion(x,y);
 			if(carta){
 				var girar = true;
-				console.log("double click en " + carta.sprite);	//Bien
 				that.gameboard.handboard.updateHand(carta, false, girar);
 			};
 		});
@@ -330,39 +324,26 @@ var Game = function(partidaId) {
 			var x = event.pageX - offsetLeft;
 			var y = event.pageY - offsetTop;
 
-			//console.log("var x :"+ x +" var y: "+y)
-
 			var descarte=false
 
 			if (( x>=750 && x<=810) && ( y>=680 && y<=770)) {
 				var descarte=true
 			}
-
-			console.log(descarte)
-
-//			console.log("has soltado en (" + x + "," + y + ")");
 			if(cartaSeleccionada){
 				that.gameboard.handboard.soltar(cartaSeleccionada);
 				cartaSeleccionada = null;
 				over = false;
 				var audio = new buzz.sound('audio/carta3.mp3');
 				audio.play();
-			}
-
-			var accion = that.selectPlay(x,y);
-			 if(moviendo){
-
-	// 				por ahora vuelvo a su lugar original
-	//				hay que tocar selectplay
-				//console.log(mazoAux);
-				//console.log(that.gameboard.handboard);
-				if(accion){
-					console.log("restauro");
-					that.gameboard.handboard = mazoAux.copiar();
+				if(moviendo){
+					var accion = that.selectPlay(carta, x,y);
+					if(accion){
+						that.gameboard.handboard = mazoAux.copiar();
+					}
+					that.gameboard.handboard.updateHand(cartaSeleccionada, over, false);
+					moviendo = false;
 				}
-				that.gameboard.handboard.updateHand(cartaSeleccionada, over, false);
-				moviendo = false;
-			}
+			};
 		});
 	};
 

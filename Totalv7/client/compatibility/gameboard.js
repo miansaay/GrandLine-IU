@@ -26,8 +26,9 @@ var GameBoard = function(namesPlayers,cardsHand,roll) {
 		return accion;
 	};
 
-	this.inRegion = function(x,y){
+	this.inRegion = function(carta, x,y){
 		//ANTES DE TODO PONER A NULL TARGET,COORD Y DISCARD
+		this.selectedCard = carta;
 		this.selectedTarget = null;
 		this.selectedCoord = null;
 		this.selectedDiscard = false;
@@ -41,6 +42,7 @@ var GameBoard = function(namesPlayers,cardsHand,roll) {
 //		console.log(r);
 		//SOLO LLAMO A BOARD Y POINTBOARD SI HAY CARTA SELECCIONADA
 		if(this.selectedCard != null){
+			console.log("THIS.SELECTEDCARD");
 			this.selectedCoord = this.board.selectCell(x,y);
 	//		console.log(this.selectedCoord);
 			this.selectedTarget = this.pointsboard.selectTarget(x,y);

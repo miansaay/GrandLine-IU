@@ -20,7 +20,6 @@ var Card = function(x,y) {
 		if ((nombre=="Camino") || (nombre=="SinCam")){
 			this.posible_girada = true;
 		}
-
 		this.sprite = sprite;
 	};
 

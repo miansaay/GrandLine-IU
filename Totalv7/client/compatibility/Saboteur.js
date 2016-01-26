@@ -135,23 +135,22 @@ var offListener = function(game){
 var runTracker = function(partidaId,game){
 	// TRACKER DEL TURNO
 	var turnoTracker = Tracker.autorun(function(){
-//		console.log("tracker de turno");
+		console.log("tracker de turno");
 		var turno = Partidas.findOne({_id: partidaId}).jugadorActivo;
 		game.updateTurno(turno);
 	});
 
 	//TRACKER DE ACCIONES
 	var accionTracker = Tracker.autorun(function(){
-//		console.log("tracker de accion");
+		console.log("TRACKER DE ACCION");
 		var accion = Acciones.findOne({partidaId: partidaId},{sort: {datetime: -1,limit: 1}});
-		var usuario = Meteor.user().username;
-
-//		console.log("ACCION de " + usuario);
-//		console.log(accion);
 		if(accion){
+			console.log(accion);
 			game.processAccion(accion);
 		}
 	});
+
+
 	game.turnoTracker = turnoTracker;
 	game.accionTracker = accionTracker;
 };
