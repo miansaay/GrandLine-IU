@@ -92,6 +92,10 @@ var Game = function(partidaId) {
 	this.inProcess = false;
 	this.fondo = new Image();
 	this.fondo.src = "sprites/tablero.jpg";
+	this.fondomano = new Image();
+	this.fondomano.src = "sprites/tapete.jpg";
+	this.fondojug = new Image();
+	this.fondojug.src = "sprites/fondojug.jpg"
 	this.accionId = null;
 	this.stop = false;
 	this.isMyTurn = false;
@@ -373,6 +377,8 @@ var Game = function(partidaId) {
 		clearCanvas(canvas);
 
 		ctx.drawImage(that.fondo,0,0,1100,810);
+		ctx.drawImage(that.fondomano,0,630,900,180);
+		ctx.drawImage(that.fondojug, 900,0,200,810);
 		that.gameboard.draw();
 
 		if(!that.stop){
