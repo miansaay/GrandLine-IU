@@ -92,6 +92,10 @@ var Game = function(partidaId) {
 	this.inProcess = false;
 	this.fondo = new Image();
 	this.fondo.src = "sprites/tablero.jpg";
+	this.fondomano = new Image();
+	this.fondomano.src = "sprites/tapete.jpg";
+	this.fondojug = new Image();
+	this.fondojug.src = "sprites/fondojug.jpg"
 	this.accionId = null;
 	this.stop = false;
 	this.isMyTurn = false;
@@ -273,7 +277,7 @@ var Game = function(partidaId) {
 			var mazoAux = new Array(that.gameboard.handboard.length);
 		}
 
-		
+
 
 		$('#canvas').on( "mousemove", function( event ) {
 			event.preventDefault();
@@ -309,9 +313,9 @@ var Game = function(partidaId) {
 			  				init_y_scroll=init_y_scroll-90
 			  			}
 
-			  			
 
-			  			
+
+
 
 			  		}
 			  	} else {	//Solo entra si hay una carta seleccionada
@@ -319,7 +323,7 @@ var Game = function(partidaId) {
 			  			// Creo una copia de la mano que tengo
 			  			mazoAux = that.gameboard.handboard.copiar();
 			  			moviendo = true;
-			  			
+
 			  		} else {
 		  				that.gameboard.handboard.mover(cartaSeleccionada, x-distanciax, y-distanciay);
 		  			}
@@ -412,6 +416,8 @@ var Game = function(partidaId) {
 		clearCanvas(canvas);
 
 		ctx.drawImage(that.fondo,0,0,1100,810);
+		ctx.drawImage(that.fondomano,0,630,900,180);
+		ctx.drawImage(that.fondojug, 900,0,200,810);
 		that.gameboard.draw();
 
 		if(!that.stop){
