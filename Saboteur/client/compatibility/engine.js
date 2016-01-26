@@ -92,10 +92,6 @@ var Game = function(partidaId) {
 	this.inProcess = false;
 	this.fondo = new Image();
 	this.fondo.src = "sprites/tablero.jpg";
-	this.fondomano = new Image();
-	this.fondomano.src = "sprites/tapete.jpg";
-	this.fondojug = new Image();
-	this.fondojug.src = "sprites/fondojug.jpg"
 	this.accionId = null;
 	this.stop = false;
 	this.isMyTurn = false;
@@ -267,6 +263,8 @@ var Game = function(partidaId) {
 		var cartaSeleccionada = null;
 		var moviendo = false;
 		var accion = true;
+		var init_y_scroll;
+		var scroll=false;
 		var distanciax;
 		var distanciay;
 		console.log(that.gameboard);
@@ -274,6 +272,8 @@ var Game = function(partidaId) {
 			console.log("CREO MAZOAUX");
 			var mazoAux = new Array(that.gameboard.handboard.length);
 		}
+
+		
 
 		$('#canvas').on( "mousemove", function( event ) {
 			event.preventDefault();
@@ -289,12 +289,37 @@ var Game = function(partidaId) {
 			  		} else if(!carta && over){
 			  			over = false;
 			  			that.gameboard.handboard.updateHand(carta, over, false);
+			  		}else if (scroll){
+			  			console.log(that.gameboard.board.scroll)
+
+			  			distancia=y-init_y_scroll
+
+			  			n_scroll=parseInt(distancia/90)
+
+			  			console.log(distancia)
+
+			  			console.log(n_scroll)
+
+			  			if (n_scroll==1){
+			  				that.gameboard.board.scroll=that.gameboard.board.scroll-1
+			  				init_y_scroll=init_y_scroll+90
+
+			  			}else if (n_scroll==-1){
+			  				that.gameboard.board.scroll=that.gameboard.board.scroll+1
+			  				init_y_scroll=init_y_scroll-90
+			  			}
+
+			  			
+
+			  			
+
 			  		}
 			  	} else {	//Solo entra si hay una carta seleccionada
 			  		if(!moviendo){
 			  			// Creo una copia de la mano que tengo
 			  			mazoAux = that.gameboard.handboard.copiar();
 			  			moviendo = true;
+			  			
 			  		} else {
 		  				that.gameboard.handboard.mover(cartaSeleccionada, x-distanciax, y-distanciay);
 		  			}
@@ -308,6 +333,7 @@ var Game = function(partidaId) {
 			var x = event.pageX - offsetLeft;
 			var y = event.pageY - offsetTop;
 
+
 			if(that.isMyTurn || !that.end){
 				if(carta){
 					distanciax=(x-carta.x);
@@ -316,6 +342,10 @@ var Game = function(partidaId) {
 					cartaSeleccionada = that.gameboard.handboard.seleccionar(carta);
 					audio = new buzz.sound('audio/carta3.mp3');
 					audio.play();
+				}else{
+					scroll=true
+					init_y_scroll  = y;
+
 				}
 			}
 		});
@@ -345,6 +375,11 @@ var Game = function(partidaId) {
 				if (( x>=750 && x<=810) && ( y>=680 && y<=770)) {
 					var descarte=true
 				}
+
+				if (scroll){
+					scroll=false
+				}
+
 				if(cartaSeleccionada){
 					that.gameboard.handboard.soltar(cartaSeleccionada);
 					cartaSeleccionada = null;
@@ -377,8 +412,6 @@ var Game = function(partidaId) {
 		clearCanvas(canvas);
 
 		ctx.drawImage(that.fondo,0,0,1100,810);
-		ctx.drawImage(that.fondomano,0,630,900,180);
-		ctx.drawImage(that.fondojug, 900,0,200,810);
 		that.gameboard.draw();
 
 		if(!that.stop){
