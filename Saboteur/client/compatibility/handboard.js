@@ -25,7 +25,7 @@ var HandBoard = function(cardsHand,roll) {
 	this.list[i].setSprite("CaminoAtras");
 	this.list[i].setText("PASAR");
 	i = i + 1;
-	
+
 	this.list[i] = new Card((i*90)+40,this.y + 50);
 	this.list[i].setText("GIRAR");
 */
@@ -49,7 +49,7 @@ var HandBoard = function(cardsHand,roll) {
 	};
 
 	//VUELVE AL ESTADO this.selected = false DE UNA CARTA CONCRETA (recibe el indice de la carta)
-	//Solo es llamado si hay una carta seleccionada previamente 
+	//Solo es llamado si hay una carta seleccionada previamente
 	//(Salta la carta no estaba seleccionada con PASAR Y GIRAR)
 	this.soltar = function(card){
 		var numCarta = null;
@@ -83,9 +83,9 @@ var HandBoard = function(cardsHand,roll) {
 					if(raton){
 						//Cambia el tamaño de la carta si paso el raton por encima
 						//pongo a done el indice de la carta cambiada
-						
+
 						this.list[i].setSize(72,108);
-						
+
 						this.numCarta = i;	//0 es false
 					};
 				};
@@ -119,7 +119,7 @@ var HandBoard = function(cardsHand,roll) {
 	};
 
 	this.draw = function(){
-		drawText(this.roll,"red","30px Georgia",this.x + 100,this.y + 30);
+		drawText(this.roll,"white","30px Georgia",this.x + 100,this.y + 30);
 		SpriteSheet.draw("CaminoAtras",730,680, 60, 90, false);
 		drawRect("black",this.x,this.y,this.w,this.h);
 		for (i = 0; i < this.list.length; i++) {
