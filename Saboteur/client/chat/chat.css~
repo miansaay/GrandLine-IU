@@ -1,0 +1,57 @@
+#formulario{
+	text-align: center;
+	border-radius: 10px;
+	height: 20px;
+	width: 100%;
+	float: left;
+}
+#chat_gral{
+	position: absolute;
+	top:120px;
+	border-radius: 10px;
+	border-style: solid;
+	float: left;
+	height: 450px;
+	width: 200px;
+	background: -moz-linear-gradient(#444, #111);
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #111),color-stop(1, #444));
+    background: -webkit-linear-gradient(#444, #111);
+    background: -o-linear-gradient(#444, #111);
+    background: -ms-linear-gradient(#444, #111);
+    background: linear-gradient(#444, #111);
+	
+}
+#mensajes{
+	width: 100%;
+	height: 400px;
+	color: #E9DF1D;
+	border-radius: 1px;
+}
+#nickLetra{
+	color: #519EF9;
+}
+#message{
+	color: black;
+	height: 20px;
+	width: 90%;
+	text-align: center;
+}
+#emisor{
+	text-align: center;
+}
+
+/*
+#boton_juego{
+	background: transparent;
+    	border: none;
+    	font-size:0;
+}
+*/
+
+#footer{
+    width: 100%;
+    padding-top: 900px 0 0 0;
+    list-style: none;
+    background: #111;
+
+}

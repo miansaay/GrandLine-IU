@@ -1,0 +1,120 @@
+
+
+<template name="saboteur_temp">
+	<div class="total-board" hidden></div>	
+	<div class="match-board" hidden>
+		<canvas id="canvas"></canvas>
+		<div id="chatt">
+			{{>chatpartidas}}
+			
+		</div>
+	</div>
+
+
+	<div id="cuadro">
+		<div id="tabs">
+			<ul class="bmenu">
+				<li id="inicio"><a href="#">Ayuda</a></li>
+				<li id="partidas"><a href="#partidas">Unirse a partida</a></li>
+				<li id="partidassin"><a href="#partidassin">Partidas empezadas</a></li>
+				<li id="lista_partidas"><a href="#lista_partidas">Partidas pendientes</a></li>
+				<li id="crear_partida"><a href="#crear_partida">Crear partidA</a></li>
+			</ul> 
+		</div>
+		<div id="pantalla">
+
+			<div class="tab_conten">
+			{{# if rankSelected }}
+				{{#if inicio }}
+					<a href="/ayuda">
+						<img src="images/saboteur.jpg" width="700" height="449">
+					</a>
+				{{/if}}
+				{{#if partidas }}
+					<div id="partidas" class="tab_content">
+						<h3>Partidas disponibles</h3>
+						<div class="lista_partidas">
+							{{#each match}}
+								<li >
+									<p class="match"> <span class="titulo">{{titulo}}</span> 
+										<span class="lista-jug">[{{listaJugadores}}]</span></p>
+									<p class="medida">{{measure}}</p>
+									{{#if userInMatch}}
+										<button type="button" id="unirse-partida" class="boton">Unirse</button>
+									{{/if}}	
+								</li>
+							{{/each}}
+						</div>
+					</div>
+					 {{/if}}
+					 {{#if partidassin }}
+						<div id="partidassin" class="tab_content" >
+							<h3>Mis partidas sin lanzar</h3>
+							<div class="lista_partidas">
+							{{#each mymatch}}
+								<li>
+									<p class="match"> <span class="titulo">{{titulo}}</span> 
+										<span class="lista-jug">[{{listaJugadores}}]</span></p><p class="medida">{{measure}}</p>
+									{{#if startMatch}}
+										<button type="button" class="boton" id="empezar-partida">Comenzar Partida</button>
+									{{/if}}
+								</li>
+							{{/each}}
+						</div>
+					</div>
+				 {{/if}}
+
+				 {{#if lista_partidas }}
+					<div id="lista_partidas" class="tab_content">
+							<h3>Partidas Lanzadas</h3>
+							<div class="lista_partidas">
+							{{#each mystartedMatch}}
+								<li>
+									<p class="match"> <span class="titulo">{{titulo}}</span> 
+										<span class="lista-jug">[{{listaJugadores}}]</span></p> <p class="medida">{{measure}}</p>
+									<button type="button" class="boton" id="entrar-partida"> Enter Match </button>
+								</li>
+							{{/each}}
+						</div>
+					</div>
+				 {{/if}}
+				 {{#if crear_partida }}	
+					<div id="crear_partida" class="tab_content">
+					<div class="crear_partida">
+						<h3>Crear partida</h3>
+						<form>
+					 		<input type="text" name="titulo" placeholder="Titulo Partida" required />
+					 		<input type="number" name="numJugadores"  min="2" max="10" required />
+							<button id="crear_partida" class="boton" type="submit">Crear Partida</button>
+						</form>
+					</div>
+					<section class="rw-wrapper">
+						<h2 class="rw-sentence">
+							<span>¿Serás </span>
+							<span>un</span>
+							<div class="rw-words rw-words-1">
+								<span>buscardor?</span>
+								<span>saboteador?</span>
+								<span>buscador?</span>
+								<span>saboteador?</span>
+								<span>buscador?</span>
+								<span>saboteador?</span>
+							</div>
+						</h2>
+					</section>
+					</div>
+					{{/if}}
+				{{else}}
+					<a href="/ayuda">
+						<img src="images/saboteur.jpg" width="700" height="449">
+					</a>
+				{{/if}}
+			</div>
+		</div>
+
+	</div>
+
+	
+
+</template>
+
