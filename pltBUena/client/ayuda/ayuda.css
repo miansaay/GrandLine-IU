@@ -1,0 +1,269 @@
+#tabla-ayuda{
+	float: left;
+	top:121px;
+    left:350px;
+    height: 450px;
+    width: 900px;
+    display:inline-block;
+    border-radius:10px;
+
+    background: transparent linear-gradient(to bottom, #519EF9 2%, #448EF0 2%, #3376DE 47%, #2866D2 59%, #2866D2 100%) repeat scroll 0% 0%;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    position: absolute;
+
+}
+.tab {
+    display:none;
+}
+ 
+.tab.active {
+    display:block;
+}
+.ayuda-links{
+    color: #E9DF1D;
+    margin-left: 145px;
+    font: bold 12px/25px Arial, Helvetica;
+    text-decoration: none;
+    
+    
+}
+
+.ayuda-links li {
+    float:left;
+    list-style:none;
+    margin-left: 2px;
+    height: 40px;
+    border-radius: 5px;
+    background: -moz-linear-gradient(#111, #111);
+    background: -moz-linear-gradient(#111, #111);
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #111),color-stop(1, #444));
+    background: -webkit-linear-gradient(#444, #111);
+    background: -o-linear-gradient(#444, #111);
+    background: -ms-linear-gradient(#444, #111);
+    background: linear-gradient(#444, #111);
+}
+
+
+.ayuda-content {
+    padding:15px;
+    border-radius:10px;
+    box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+    background:#fff;
+    height: 410px;
+    width: 900px;
+    background-image: url("images/fondo-piedra.png");
+    background-size: 900px 410px;
+    margin-top: 40px;
+
+
+
+
+}
+.ayuda-links a {
+    height: 40px;
+    padding:9px 15px;
+    display:inline-block;
+    border-radius:3px 3px 0px 0px;
+    font-size:16px;
+    font-weight:600;
+    transition:all linear 0.15s;
+    color: #E9DF1D;
+    font: bold 12px/25px Arial, Helvetica;
+
+}
+.ayuda-links a:hover {
+    background:#a7cce5;
+    text-decoration:none;
+}
+li.active a, li.active a:hover {
+    background:#fff;
+    color:#4c4c4c;
+}
+
+.active {
+    position: relative;
+    background: white;
+}
+
+
+.a.button{
+	-webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    color: blue;
+}
+
+.tab li{
+    list-style-type: none;
+    padding: 5px;
+    font-family: Georgia;
+    font-size: 15px;
+
+}
+/*.parrafos{
+    font-family: Big Caslon,Book Antiqua,Palatino Linotype,Georgia,serif;
+
+    background: transparent;
+    color: #B22222;
+    font-size: 17px;
+    text-align: justify;
+    font-weight: 600;
+}*/
+#idea{
+    font-family: Big Caslon,Book Antiqua,Palatino Linotype,Georgia,serif;
+
+    background: transparent;
+    
+    margin-top: 50px;
+    color: #0B1836;
+    font-size: 17px;
+    text-align: justify;
+    
+}
+#preparacion{
+    font-family: Big Caslon,Book Antiqua,Palatino Linotype,Georgia,serif;
+
+    background: transparent;
+    margin-top: 50px;
+    color: #0B1836;
+    font-size: 15px;
+    text-align: justify;
+    
+    height: 300px;
+
+}
+#logo{
+    height: 100px;
+    background: transparent;
+}
+.ayuda-titulos{
+    text-decoration: underline;
+    font-size: 45px;
+    margin-left: 40px;
+}
+#j1{
+    width: 400px;
+    float: left;
+}
+#j2{
+    width: 400px;
+    float: left;
+}
+#j3{
+    float: left;
+    height: 100px;
+}
+#como-jugar{
+    font-family: Big Caslon,Book Antiqua,Palatino Linotype,Georgia,serif;
+
+    background: transparent;
+    color: #B22222;
+    font-size: 14px;
+    text-align: justify;
+      
+
+}
+.como-jugar-links{
+    margin-top: 100px;
+    margin-left: 0px;
+    float: left;
+
+}
+
+.como-jugar-links li{
+    background: transparent;
+}
+
+.como-jugar-links a{
+    background: transparent;
+    font-family: Big Caslon,Book Antiqua,Palatino Linotype,Georgia,serif;
+    color: #B22222;
+    font-size: 14px;
+    
+}
+.como-jugar-links .active{
+    background: transparent;
+
+
+}
+
+#tabla-jugar{
+    background: transparent;
+    height: 300px;
+}
+.como-jugar-content{
+    float: left;
+    width: 600px;
+    height: 350px;
+    background: transparent;
+}
+
+.como-jugar-content .active{
+    background: transparent;
+}
+
+#tunel{
+    margin-top: 50px;
+    font-size: 14px;
+    color: #0B1836;
+}
+
+#img-cartas-1{
+    float: left;
+}
+#img-cartas-2{
+    float:left;
+}
+#primera-fila{
+    font-size: 13.8px;
+    color: #0B1836;
+    width: 390px;
+    float: left;
+}
+#segunda-fila{
+    font-size: 13.8px;
+    color: #0B1836;
+    width: 390px;
+    float: left;
+}
+#img-derrumbe{
+    float: right;
+}
+#derrumbe{
+    color: #0B1836;
+    font-size: 13.8px;
+    width: 500px;
+    float: right;
+}
+#img-mapa{
+    float: left;
+}
+#mapa{
+    color: #0B1836;
+    font-size: 13.8px;
+    width: 500px;
+    float: left;
+}
+#final-ronda{
+    margin-top: 50px;
+    font-size: 15px;
+    color: #0B1836;
+}
+#pepitas{
+    margin-top: 50px;
+    font-size: 15px;
+    color: #0B1836;
+}
+
+#final{
+    font-family: Big Caslon,Book Antiqua,Palatino Linotype,Georgia,serif;
+
+    background: transparent;
+    font-size: 15px;
+    color: #0B1836;
+
+    text-align: justify;
+    
+    margin-top: 75px;
+}

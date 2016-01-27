@@ -1,0 +1,24 @@
+
+<template name="chat">
+    <div class="panel panel-default" id="chat_gral">
+        <div id="mensajes">
+            <br>
+           {{#each latestMessages}} 
+            <p>
+                <label id="nickLetra">{{nick}}: </label>
+                {{message}}
+            </p>
+            {{/each}} 
+            </div>
+        <form id="formulario">
+            <input type="text" placeholder="Deja tu mensaje" name="message" id="message" maxlength="27">
+       </form>
+		
+    </div>
+	 <footer id= "footer">
+	  <p>Posted by: Hege Refsnes</p>
+	  <p>Contact information: <a href="mailto:someone@example.com">
+	  someone@example.com</a>.</p>
+	</footer> 
+        
+</template>

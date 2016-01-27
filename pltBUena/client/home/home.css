@@ -1,0 +1,15 @@
+
+#cuadroHome{
+	border-radius: 10px;
+	border-style: solid;
+	position: absolute;
+	top:121px;
+	left:350px;
+	height: 450px;
+	width: 900px;
+	border-color: white;
+
+	background:url(images/jugamos.jpg) no-repeat center;
+	background-size: 900px 450px ;
+	
+}

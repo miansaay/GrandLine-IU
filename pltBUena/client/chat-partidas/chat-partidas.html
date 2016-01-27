@@ -1,0 +1,19 @@
+<template name="chatpartidas">
+    <div class="panel panel-default" id="chat_gral2">
+        <div id="mensajes">
+            <br>
+           {{#each MensajesJuego}} 
+            <p>
+                <label id="nickLetra2">{{nick}}: </label>
+                {{message}}
+            </p>
+            {{/each}} 
+            </div>
+        
+    </div>
+    
+        <form id="formulario2">
+            <input type="text" placeholder="Deja tu mensaje" name="message" id="message2" maxlength="65" autocomplete="off">
+       
+      </form>
+</template>
