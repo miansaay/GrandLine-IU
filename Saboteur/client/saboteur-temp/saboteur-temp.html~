@@ -34,16 +34,18 @@
 					<div id="partidas" class="tab_content">
 						<h3>Partidas disponibles</h3>
 						<div class="lista_partidas">
+							<tbody>
 							{{#each match}}
-								<li >
-									<p class="match"> <span class="titulo">{{titulo}}</span> 
-										<span class="lista-jug">[{{listaJugadores}}]</span></p>
-									<p class="medida">{{measure}}</p>
+								<tr>
+									<td class="subrayar"><span class="titulo">{{titulo}}</span></td>
+									<td class="subrayar"><span class="lista-jug">[{{listaJugadores}}]</span></td>
+									<td class="subrayar"><p class="medida">{{measure}}</p></td>
 									{{#if userInMatch}}
-										<button type="button" id="unirse-partida" class="boton">Unirse</button>
+										<td><button type="button" id="unirse-partida" class="boton">Unirse</button></td>
 									{{/if}}	
-								</li>
+								</tr>
 							{{/each}}
+							</tbody>
 						</div>
 					</div>
 					 {{/if}}
@@ -51,15 +53,18 @@
 						<div id="partidassin" class="tab_content" >
 							<h3>Mis partidas sin lanzar</h3>
 							<div class="lista_partidas">
+							<tbody>
 							{{#each mymatch}}
-								<li>
-									<p class="match"> <span class="titulo">{{titulo}}</span> 
-										<span class="lista-jug">[{{listaJugadores}}]</span></p><p class="medida">{{measure}}</p>
-									{{#if startMatch}}
-										<button type="button" class="boton" id="empezar-partida">Comenzar Partida</button>
-									{{/if}}
-								</li>
+							<tr>
+								<td class="subrayar"><span class="titulo">{{titulo}}</span> </td>
+								<td class="subrayar"><span class="lista-jug">[{{listaJugadores}}]</span></td>
+								<td class="subrayar"><p class="medida">{{measure}}</p></td>
+								{{#if startMatch}}
+									<td><button type="button" class="boton" id="empezar-partida">Comenzar Partida</button></td>
+								{{/if}}
+							</tr>
 							{{/each}}
+						</tbody>
 						</div>
 					</div>
 				 {{/if}}
@@ -68,13 +73,25 @@
 					<div id="lista_partidas" class="tab_content">
 							<h3>Partidas Lanzadas</h3>
 							<div class="lista_partidas">
+							 <thead>
+								  <tr>
+									  
+									   <th>Título</th>
+									   <th>Jugadores</th>
+									   <th>Num Jugadores</th>
+										<th>Disponibilidad</th>
+								  </tr>
+							 </thead>
+							<tbody>
 							{{#each mystartedMatch}}
-								<li>
-									<p class="match"> <span class="titulo">{{titulo}}</span> 
-										<span class="lista-jug">[{{listaJugadores}}]</span></p> <p class="medida">{{measure}}</p>
-									<button type="button" class="boton" id="entrar-partida"> Enter Match </button>
-								</li>
+							<tr>
+									<td class="subrayar"><span class="titulo">{{titulo}}</span> </td>
+									<td class="subrayar"><span class="lista-jug">[{{listaJugadores}}]</span></td>
+									<td class="subrayar"><p class="medida">{{measure}}</p></td>
+									<td><button type="button" class="boton" id="entrar-partida"> Enter Match </button></td>
+							</tr>
 							{{/each}}
+						</tbody>
 						</div>
 					</div>
 				 {{/if}}
@@ -90,7 +107,7 @@
 					</div>
 					<section class="rw-wrapper">
 						<h2 class="rw-sentence">
-							<span>¿Seras </span>
+							<span>¿Serás </span>
 							<span>un</span>
 							<div class="rw-words rw-words-1">
 								<span>buscardor?</span>

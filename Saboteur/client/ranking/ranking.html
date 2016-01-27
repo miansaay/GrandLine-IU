@@ -13,22 +13,22 @@
   				 <thead>
 			        <tr>
 			           
-			            <th>Posicion</th>
-			            <th>Foto</th>
-			            <th>Usuario</th>
-							<th>Puntos</th>
-							<th>Pais</th>
+			            <th align="center">Posicion</th>
+			            <th align="center">Foto</th>
+			            <th align="center">Usuario</th>
+							<th align="center">Puntos</th>
+							<th align="center">Pais</th>
 			        </tr>
 			    </thead>
 			    <tbody>
 
 					 {{#each position2}}
 			        <tr>
-							<td>{{index}}</td>
-							<td><img src="{{imagen}}" type="submit" width="26" height="26"> </td>
-							<td>{{jugadorSelected2.nick}}</td>
-			            <td>{{puntos}}</td>
-							<td>{{jugadorSelected2.nacionalidad}}</td>
+							<td align="center">{{index}}</td>
+							<td align="center"><img src="{{imagen}}" type="submit" width="26" height="26"> </td>
+							<td align="center">{{jugadorSelected2.nick}}</td>
+			            <td align="center">{{puntos}}</td>
+							<td align="center">{{jugadorSelected2.nacionalidad}}</td>
 
 			        </tr>
 					{{/each}}

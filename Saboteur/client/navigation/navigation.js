@@ -46,7 +46,7 @@ Template.navigation.events({
                 $.growlUI('Lo sentimos, usuario no encontrado'); 
             }
      },
-     /*'click #navPerfil':function(){
+     'click #navPerfil':function(){
         
         
         if(!Perfiles.findOne({_id:Meteor.userId()})){
@@ -68,36 +68,11 @@ Template.navigation.events({
             Meteor.call("addPerfil", post);
             $.growlUI('¡Enhorabuena!', 'Has creado tu perfil'); 
         }
-     },*/   
+     },  
 
      'click #login-buttons-logout':function(){
         Router.go('home');
-     },
-     'click #login-buttons-password':function(){
-        Meteor.setTimeout(function(){
-
-        if(Meteor.user()){
-            if(!Perfiles.findOne({_id:Meteor.userId()})){
-                Meteor.users.update({_id:Meteor.userId()},{$set:{profile:{image:AVATAR,login:true}}});
-           
-            //Se crea el perfil por primera vez
-            usuario = Meteor.user().username;
-             id = Meteor.user()._id;
-            var post = {
-                _id:id,
-                nick : usuario,
-                email : "",
-                nombre: "",
-                nacionalidad:"",
-                genero:""
-            }
-            //console.log(post);
-            Meteor.call("addPerfil", post);
-            $.growlUI('¡Enhorabuena!', 'Has creado tu perfil'); 
-            }
-        }
-     },3000);
-     }     
+     }
         
 
             

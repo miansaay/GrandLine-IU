@@ -66,13 +66,15 @@
 }
 
 .tab_content {
-    padding:15px;
-    border-radius:10px;
-    box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
-    background:#fff;
-    height: 450px;
-    width: 700px;
-	 float: rigth;
+
+	border-radius: 10px;
+	border-style: solid;
+	position: absolute;
+	top:121px;
+	left:350px;
+	height: 450px;
+	width: 700px;
+	border-color: white;
     overflow: auto;
 }
 .tab_links a {
@@ -149,8 +151,8 @@ h3{
 .lista_partidas{
     margin-top: 15px;
 }
-.lista_partidas li{
-    height: 40px;
+.subrayar span{
+
     border-bottom: 0.1px solid #E4E4E4;
 }
 .match{
@@ -293,7 +295,7 @@ div.growlUI h1, div.growlUI h1 {
 }
 .rw-words{
 	display: inline;
-	text-indent: 5px;
+	text-indent: 10px;
 }
 
 .rw-words span{

@@ -74,6 +74,7 @@
     width: 700px;
 	 float: rigth;
     overflow: auto;
+
 }
 .tab_links a {
     height: 40px;
@@ -149,8 +150,8 @@ h3{
 .lista_partidas{
     margin-top: 15px;
 }
-.lista_partidas li{
-    height: 40px;
+.subrayar span{
+
     border-bottom: 0.1px solid #E4E4E4;
 }
 .match{
@@ -200,7 +201,7 @@ h3{
     top: 0px;
     width: 1200px;
     height: 810px;
-    background-color: rgba(28, 27, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.6);
     margin-top: 120px;
 }
 

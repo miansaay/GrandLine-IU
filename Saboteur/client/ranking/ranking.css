@@ -7,7 +7,7 @@
 	height: 450px;
 	width: 900px;
 	border-color: white;
-    overflow: scroll;
+    overflow: auto;
 	
 }
 
@@ -32,7 +32,6 @@
     font: bold 12px/25px Arial, Helvetica;
     text-decoration: none;
 }
-
 
 
 

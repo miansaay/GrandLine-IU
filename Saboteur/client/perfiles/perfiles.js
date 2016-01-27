@@ -62,19 +62,20 @@ Template.perfiles.helpers({
 			idOtro=document.URL.slice(31,100);
 			perfil=Perfiles.findOne({_id:idOtro});
 		return Toplist.findOne({name: perfil.nick});
-	  }
+	  },
 
-	 /* "buscarposicion": function() {
-    		usuario=document.URL.slice(31,100);
-		datos=Perfiles.findOne({_id:usuario});
-		encontrado=false;
-		maximo=Toplist.find({}, {sort : {puntos : -1}}).length;
-		for(i=0;i<maximo;i++){
-			if(Toplist.findOne({name: perfil.nick}) == usuario)
-				encontrado=true;
-		}
-		return Toplist.findOne({name: perfil.nick});
-	  }*/
+	 'buscarRanking2':function(){
+	 		idOtro=document.URL.slice(31,100);
+	 		nombreAmi=Meteor.users.findOne({_id:idOtro}).username;
+	  		b=0;
+	  		for(i=0;i<Toplist.find().fetch().length;i++){
+	  			if(Toplist.find({},{sort:{puntos:-1}}).fetch()[i].name == nombreAmi){
+	  				b=i+1;
+	  			}
+	  		}
+	  		return b;
+				
+	  }
 
 
 });

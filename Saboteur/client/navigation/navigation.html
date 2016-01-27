@@ -7,6 +7,7 @@
 				{{#if currentUser}}
 
 			    <li><a href="/" class="btn btn-primary btn-lg" id="navHome">Home</a></li>
+			    <li><a href="/perfil" class="btn btn-primary" id="navPerfil">Perfil de Usuario</a></li>
 			    
 			    
 			    
@@ -18,7 +19,6 @@
 			        <a href="/juego" class="btn btn-primary" id="navJuegos">Juegos</a>
 			    </li>
 			    <li><a href="/ranking" class="btn btn-primary" id="navRanking">Ranking</a></li>
-			    <li><a href="/perfil" class="btn btn-primary" id="navPerfil">Perfil de Usuario</a></li>
 			    
 			    <li><form id="formbusqueda">
             		<input type="text" placeholder="Buscar Usuario" name="busqueda">
@@ -27,7 +27,7 @@
        			<li><a href="/#" class="btn btn-primary" id="navConectados" ><span class="glyphicon glyphicon-search"></span></a>
        				<ul>
        					{{#each usuarios}}
-			            <li><span> <a href="/perfiles/{{this.id}}"><img src="{{this.image}}" type="submit" width="26" height="26">  {{this.username}} {{#if this.status}} <span class="glyphicon glyphicon-user" style="color:green"></span>{{else}}<span class="glyphicon glyphicon-user" style="color:red"></span> {{/if}}</a></span></li>
+			            <li><span> <a href="/perfiles/{{this.id}}">{{#if tienePerfil}}<img src="{{this.image}}" type="submit" width="26" height="26">{{/if}}  {{this.username}} {{#if this.status}} <span class="glyphicon glyphicon-user" style="color:green"></span>{{else}}<span class="glyphicon glyphicon-user" style="color:red"></span> {{/if}}</a></span></li>
        					{{/each}}
 			            
 			        </ul>
