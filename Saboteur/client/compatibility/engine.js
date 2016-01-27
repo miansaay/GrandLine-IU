@@ -176,9 +176,6 @@ var Game = function(partidaId) {
 		Meteor.call("jugarCarta",that.partidaId,action,carta,target, function(error,result) {
 			if(!error){
 				if(result != false){
-//					console.log("------------------------");
-//					console.log(result);
-//					console.log("------------------------");
 					//SI SE A JUGADO UNA CARTA DE DESCUBRIMIENTO, EL SERVER NOS DEVUELVE LA CARTA A DESTAPAR
 					if(result != true){
 						that.gameboard.board.list[fila][columna].setSprite(result.name);
@@ -191,6 +188,7 @@ var Game = function(partidaId) {
 
 			that.inProcess = false;
 		});
+		that.inProcess = false;
 		return true;
 	};
 
@@ -202,12 +200,13 @@ var Game = function(partidaId) {
 			return;
 		}
 		var accion = this.gameboard.inRegion(carta, x, y);
-//		console.log("ACCION EN SELECTPLAY");
-//		console.log(accion);
-		if(accion == true){
+		console.log("ACCION EN SELECTPLAY");
+		console.log(accion);
+		if(accion == "FinRonda"){
 			this.stopGame();
-//			console.log("CARGO DE NUEVO EL CANVAS");
 			loadCanvas(this.partidaId);
+		}else if(accion == "Final"){
+			this.stopGame();
 		}else{
 			return this.processPlay(accion);
 		}
@@ -233,18 +232,17 @@ var Game = function(partidaId) {
 				that.gameboard.board.list[accion.carta.fila][accion.carta.columna].setSprite("Standard");
 				break;
 			case "finalRonda":
-				console.log("FINAL DE LA RONDA");
+//				console.log("FINAL DE LA RONDA");
 				that.isMyTurn = true;
 				that.end = true;
 				that.gameboard = new canvasFinal(accion.tipoGanador);
 				break;
 			case "finalPartida":
-				console.log("FINAL DE LA PARTIDA");
+//				console.log("FINAL DE LA PARTIDA");
 				that.isMyTurn = true;
 				that.end = true;
 				that.gameboard = new canvasFinal(accion.tipoGanador);
 				that.gameboard.setGanadores(accion.ganadores);
-				that.stopGame();
 				break;
 			case "doble":
 				//la primera es la carta
@@ -257,8 +255,6 @@ var Game = function(partidaId) {
 		}
 	};
 
-	//ACTIVA LOS LISTENERS CUANDO HA TERMINADO LA RONDA
-	//LUEGO DA ERROR EL CANVAS FINAL
 	this.onListeners = function(){
 		console.log("AGREGO LISTENERS");
 		var over = false;
@@ -271,13 +267,10 @@ var Game = function(partidaId) {
 		var scroll=false;
 		var distanciax;
 		var distanciay;
-		console.log(that.gameboard);
+
 		if(that.gameboard.handboard != undefined){
-			console.log("CREO MAZOAUX");
 			var mazoAux = new Array(that.gameboard.handboard.length);
 		}
-
-
 
 		$('#canvas').on( "mousemove", function( event ) {
 			event.preventDefault();
@@ -295,15 +288,8 @@ var Game = function(partidaId) {
 			  			that.gameboard.handboard.updateHand(carta, over, false);
 			  		}else if (scroll){
 			  			console.log(that.gameboard.board.scroll)
-
 			  			distancia=y-init_y_scroll
-
 			  			n_scroll=parseInt(distancia/90)
-
-			  			console.log(distancia)
-
-			  			console.log(n_scroll)
-
 			  			if (n_scroll==1){
 			  				that.gameboard.board.scroll=that.gameboard.board.scroll-1
 			  				init_y_scroll=init_y_scroll+90
@@ -312,11 +298,6 @@ var Game = function(partidaId) {
 			  				that.gameboard.board.scroll=that.gameboard.board.scroll+1
 			  				init_y_scroll=init_y_scroll-90
 			  			}
-
-
-
-
-
 			  		}
 			  	} else {	//Solo entra si hay una carta seleccionada
 			  		if(!moviendo){
@@ -400,7 +381,6 @@ var Game = function(partidaId) {
 					}
 				};
 			} else {
-				console.log("FINAL");
 				that.selectPlay(null, x, y);
 			}
 		});
@@ -416,8 +396,10 @@ var Game = function(partidaId) {
 		clearCanvas(canvas);
 
 		ctx.drawImage(that.fondo,0,0,1100,810);
-		ctx.drawImage(that.fondomano,0,630,900,180);
-		ctx.drawImage(that.fondojug, 900,0,200,810);
+		if(!that.end){
+			ctx.drawImage(that.fondomano,0,630,900,180);
+			ctx.drawImage(that.fondojug, 900,0,200,810);
+		}
 		that.gameboard.draw();
 
 		if(!that.stop){

@@ -2,6 +2,8 @@
 var canvasFinal = function(tipoGanador) {
 	BaseClass.call(this);
 	this.initialize(0,0,1100,810);
+	console.log("TIPOGANADOR:");
+	console.log(tipoGanador);
 	this.tipoGanador = tipoGanador;
 	this.textSiguiente = "SIGUIENTE RONDA";
 	this.ganadores = [];
@@ -22,20 +24,25 @@ var canvasFinal = function(tipoGanador) {
 		//AUX = [X,Y,W,H]
 		var aux = [400,100,300,50];
 		if(x >= aux[0] && x < aux[0] + aux[2] && y >= aux[1] && y < aux[1] + aux[3]){
-			console.log("------------FINNNN")
-			return true;
+			if(this.textSiguiente == "SIGUIENTE RONDA"){
+				return "FinRonda";
+			} else {
+				return "Final";
+			}
 		}
 		return false;
 	};
 
 	this.draw = function(){
 		if(this.textSiguiente == "SIGUIENTE RONDA"){
-			ctx.fillStyle = "white";
-			ctx.fillRect(this.x,this.y,this.w,this.h);
+//			ctx.fillStyle = "white";
+//			ctx.fillRect(this.x,this.y,this.w,this.h);
 			ctx.fillStyle = "black";
 			ctx.font = "50px Georgia";
 			ctx.fillText("GANADOR: " + this.tipoGanador,this.x + this.w / 2 - 200,this.y + this.h/2);
 		}else{
+//			ctx.fillStyle = "white";
+//			ctx.fillRect(this.x,this.y,this.w,this.h);
 			ctx.fillStyle = "black";
 			ctx.font = "20px Georgia";
 			for(i = 0; i < this.ganadores.length; i++){

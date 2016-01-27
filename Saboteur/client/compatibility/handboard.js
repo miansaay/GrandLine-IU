@@ -19,17 +19,6 @@ var HandBoard = function(cardsHand,roll) {
 		};
 	};
 
-
-	//ELIMINO POR AHORA ESTAS 2 CARTAS
-/*	this.list[i] = new Card((i*90)+40,this.y + 50);
-	this.list[i].setSprite("CaminoAtras");
-	this.list[i].setText("PASAR");
-	i = i + 1;
-
-	this.list[i] = new Card((i*90)+40,this.y + 50);
-	this.list[i].setText("GIRAR");
-*/
-
 	//Devuelve una copia de este objeto
 	this.copiar = function(){
 		return new HandBoard(this.list, this.roll);

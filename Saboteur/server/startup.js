@@ -408,8 +408,6 @@ Meteor.startup(function () {
             if(usadas == 64){
                 finalRonda(partidaId, "Saboteador");
             }
-            //COMPROBAR SI SE HA TERMINADO LA RONDA O PARTIDA
-            //finalRonda(partidaId);
 
             return r;
         },
