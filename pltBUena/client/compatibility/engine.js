@@ -319,7 +319,6 @@ var Game = function(partidaId) {
 		  			}
 		  		}
 		  	}
-			}
 		});
 
 		$('#canvas').on("mousedown", function(event) {
