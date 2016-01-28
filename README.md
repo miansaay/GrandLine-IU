@@ -15,4 +15,4 @@ Alvaro Grande Chamorro
 
 ## Link del juego:
 
-<a href="plataforma2016.meteor.com">Saboteur</a>
+<a href="https://plataforma2016.meteor.com">Saboteur</a>
