@@ -1,0 +1,41 @@
+<template name="ranking">
+
+
+<div class="panel panel-default" id="cuadroRanking">
+{{> tablaglobal }}
+
+</div>
+</template>
+
+<template name="tablaglobal" id="tableglobal">
+			<div class="panel-heading" id="HeadRanking">Ranking global</div>
+			<table class="table table-bordered" >
+  				 <thead>
+			        <tr>
+			           
+			            <th align="center">Posicion</th>
+			            <th align="center">Foto</th>
+			            <th align="center">Usuario</th>
+							<th align="center">Puntos</th>
+							<th align="center">Pais</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+
+					 {{#each position2}}
+			        <tr>
+							<td align="center">{{index}}</td>
+							<td align="center"><img src="{{imagen}}" type="submit" width="26" height="26"> </td>
+							<td align="center">{{jugadorSelected2.nick}}</td>
+			            <td align="center">{{puntos}}</td>
+							<td align="center">{{jugadorSelected2.nacionalidad}}</td>
+
+			        </tr>
+					{{/each}}
+    			</tbody>
+			</table>
+</template>
+
+
+	
+

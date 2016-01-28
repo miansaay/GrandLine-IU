@@ -1,0 +1,160 @@
+#cuadroPerfil{
+	border-radius: 10px;
+	border-style: solid;
+	position: absolute;
+	top:121px;
+	left:350px;
+	height: 450px;
+	width: 900px;
+	border-color: black;
+	
+}
+#imag{
+	position: relative;
+	left:183px;
+	top:20px;
+}
+
+
+
+#fechas{
+	position: relative;
+	left: 0px;
+}
+.panel-heading{
+	text-align: center;
+}
+#panelinfo{
+	position: relative;
+	left: 200px;
+	top: 0px;
+	height: 449px;
+	width: 500px;
+	border-style: solid;
+}
+#panelinfo2{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 449px;
+	width: 200px;
+	border-style: solid;
+	border-radius: 10px;
+}
+#panelinfo3{
+	position: absolute;
+	left: 700px;
+	top: 0px;
+	height: 449px;
+	width: 198px;
+	border-style: solid;
+	border-radius: 10px;
+}
+#formPerfil{
+	position: absolute;
+	left: 75px;
+	top: 230px;
+	
+	width: 500px;
+}
+input#email_1.col-xs-4{
+	width: 300px;
+}
+input#nombre_1.col-xs-4{
+	width: 300px;
+}
+input#nacionalidad_1.col-xs-4{
+	width: 300px;
+}
+#botonPanel{
+	position: absolute;
+	left:150px;
+	top:150px;
+	background-color: #D9EDF7;
+}
+#botonponerAmigo{
+	background-color: #22CF24;
+	text-align: center;
+	position: relative;
+	left:188px;
+}
+#botonquitarAmigo{
+	background-color: red;
+	text-align: center;
+	position: relative;
+	left:188px;
+}
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    z-index: 2;
+    color: #FFF;
+    
+    background-color: #428BCA;
+    border-color: #E7EEF5;
+
+}
+
+.panel-info > .panel-heading {
+    color: #E9E297;
+    background: -moz-linear-gradient(#111, #111);
+    background: -moz-linear-gradient(#111, #111);
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #111),color-stop(1, #444));
+    background: -webkit-linear-gradient(#444, #111);
+    background: -o-linear-gradient(#444, #111);
+    background: -ms-linear-gradient(#444, #111);
+    background: linear-gradient(#444, #111);
+    border-color: #C0DEE4;
+
+    color: #E9DF1D;
+   
+    font: bold 12px/25px Arial, Helvetica;
+    text-decoration: none;
+    
+    
+}
+#wellNombre{
+	position: relative;
+	top:45px;
+	width: 285px;
+	left:100px;
+}
+#wellEmail{
+	position: relative;
+	top:34px;
+	width: 285px;
+	left:100px;
+}
+#wellNacionalidad{
+	position: relative;
+	top:24px;
+	width: 285px;
+	left:100px;
+}
+#wellGenero{
+	position: relative;
+	top:15px;
+	width: 285px;
+	left:100px;
+}
+#points{
+	position: absolute;
+	top: 170px;
+	left:84px;
+}
+#trofeo{
+	position: absolute;
+	top: 200px;
+	left:50px;
+
+}
+#podium{
+	position: absolute;
+	top: 300px;
+	left:0px;
+
+}
+#puesto{
+	position: absolute;
+	top: 92px;
+	left:64px;
+
+}

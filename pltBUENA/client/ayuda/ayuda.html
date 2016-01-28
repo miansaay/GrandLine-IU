@@ -1,0 +1,162 @@
+<template name="ayuda">
+	<div id="tabla-ayuda">
+		<ul class="ayuda-links">
+			<li class="active"><a href="#idea" data-toggle="tab" class="btn">Idea del Juego</a></li>
+			<li><a href="#preparacion" data-toggle="tab" class="btn">Preparación</a></li>
+			<li><a href="#como-jugar" data-toggle="tab" class="btn">Cómo Jugar</a></li>
+			<li><a href="#final" data-toggle="tab" class="btn">Final del Juego</a></li>
+
+		</ul>
+		<div class="ayuda-content">
+			<div id="idea" class="tab active parrafos">
+				<!--<img id="logo" src="images/logo-sab.png">-->
+				
+				<p id="idea-juego">
+Los jugadores se convierten en enanos buscadores de oro, que trabajan como mineros, excavando profundos
+túneles en la montaña en busca de tesoros, o en enanos saboteadores, que obstaculizan la búsqueda del
+oro de los demás. Los miembros de cada grupo deben apoyarse entre sí, aunque sólo pueden suponer cuál
+es el papel de los demás. Si los mineros consiguen crear un túnel hasta el tesoro, ganarán pepitas de oro,
+mientras que los saboteadores se irán con las manos vacías. Pero, si los mineros fallan, los saboteadores
+conseguirán el premio. Sólo cuando se reparta el oro se revelarán las identidades. Después de tres rondas,
+el jugador con más pepitas será el ganador.
+				</p>
+			</div>
+			<div id="preparacion" class="tab parrafos">
+
+
+
+				
+
+Según el número de jugadores, será necesario un número distinto de buscadores de oro y de
+saboteadores.
+					<div id="j1">
+						<ul>• Con 2 jugadores: 1 Saboteur y 2 buscadores</ul>
+						<ul>• Con 3 jugadores: 1 Saboteur y 3 buscadores</ul>
+						<ul>• Con 4 jugadores: 1 Saboteur y 4 buscadores</ul>
+						<ul>• Con 5 jugadores: 2 Saboteur y 4 buscadores</ul>
+						<ul>• Con 6 jugadores: 2 Saboteur y 5 buscadores</ul>
+					</div>
+					<div id="j2">
+						<ul>• Con 7 jugadores: 3 Saboteur y 5 buscadores</ul>
+						<ul>• Con 8 jugadores: 3 Saboteur y 6 buscadores</ul>
+						<ul>• Con 9 jugadores: 3 Saboteur y 7 buscadores</ul>
+						<ul>• Con 10 jugadores: todas las cartas de enanos</ul>
+					</div>
+				<div id="j3">
+					<p>
+Entre las 44 cartas de túnel, hay una carta de comienzo (con una escalera) y tres cartas de destino. Una
+de estas últimas tiene el tesoro, las otras dos sólo una piedra. A lo largo del juego se
+irá creando un laberinto de túneles desde la carta de comienzo a las de destino.
+					</p>
+				</div>
+				
+			</div>
+			<div id="como-jugar" class="tab parrafos">
+				<div id="tabla-jugar">
+					<ul class="como-jugar-links">
+						<li class="active"><a href="#tunel" data-toggle="tab" class="btn">Carta de Túnel</a></li>
+						<li><a href="#accion" data-toggle="tab" class="btn">Carta de Acción</a></li>
+						<li><a href="#final-ronda" data-toggle="tab" class="btn">Final de Ronda</a></li>
+						<li><a href="#pepitas" data-toggle="tab" class="btn">Reparto de Pepitas</a></li>
+					</ul>
+					<div class="como-jugar-content">
+							<div id="tunel" class="tab active">
+								<img id="img-cartas-1" src="/images/cartas3.png">
+							
+  Con esta carta se genera un recorrido desde la carta
+  de comienzo a las de destino. La carta de túnel siempre
+se debe poner junto a otra carta de túnel que ya esté
+sobre la mesa. Todos los túneles deben encajar con
+los que ya estén en juego, y la carta nunca puede
+colocarse apaisada (ver figura). Los buscadores de oro
+tratarán de construir un túnel ininterrumpido desde la carta de
+comienzo a una de las cartas de destino; los saboteadores tratarán
+de impedirlo. Pero no deberían hacerlo de manera muy obvia, o
+serán descubiertos muy pronto.
+							</div>
+							<div id="accion" class="tab">
+								<img id="img-cartas-2" src="/images/cartas4.png">
+								<div id="primera-fila">
+									<p>
+Si se da una de estas cartas de herramienta rota a un jugador, éste no podrá
+jugar carta de túnel. Puedes jugar otras cartas.
+Si al principio del turno no tienes cartas de este tipo aplicadas, puedes jugar
+una carta de túnel.
+									</p>
+								</div>
+								<div id="segunda-fila">
+									<p>
+Con estas cartas reparas las herramientas rotas (quitas una de las cartas
+explicadas arriba). Se pueden jugar sobre una carta propia o de otro
+jugador. La carta de reparación debe coincidir con la de herramienta
+rota.
+									</p>
+								</div>
+								<img id="img-derrumbe" src="/images/carta-derrumbe.png">
+								<div id="derrumbe">
+									<p>
+Esta carta de derrumbe elimina cualquier túnel (excepto las cartas de
+comienzo y destino). De este
+modo un saboteador puede interrumpir un túnel hacia una carta de destino o un buscador de
+oro puede quitar un callejón sin salida del laberinto y así abrir nuevas vías.
+									</p>
+								</div>
+								<img id="img-mapa" src="/images/carta-explorar.png">
+								<div id="mapa">
+									<p>
+Si un jugador juega esta carta de mapa, puede echar un vistazo a una de las tres cartas de
+destino. Ahora sabe si merece la pena excavar un
+túnel hacia esa carta o no, ya que sólo una de las tres tiene el tesoro.
+									</p>
+								</div>
+
+							</div>
+							<div id="final-ronda" class="tab">
+Cuando un jugador alcanza una carta de destino, creando un túnel ininterrumpido
+desde la carta de comienzo, tiene que descubrirla.
+<ul>• Si es la carta con el tesoro, la ronda acaba.</ul>
+<ul>• Si tiene una piedra, la ronda continúa.</ul>
+ La carta de destino descubierta se
+coloca junto a la carta de túnel recién jugada, de modo que los túneles se unan.
+Atención: En raras ocasiones, puede que la carta de destino no conecte todos sus
+túneles con la carta jugada, esto se permite excepcionalmente ya que se trata de
+una carta de destino.
+La ronda termina también si todos los jugadores se han quedado sin cartas en la
+mano. En ese momento se descubren las cartas de enano: ¿quién era buscador de
+oro y quién saboteador?
+
+
+							</div>
+							<div id="pepitas" class="tab">
+								<p>
+Los buscadores de oro ganan la ronda cuando se completa un túnel ininterrumpido
+desde la carta de comienzo hasta la carta con el tesoro. Del montón de cartas de
+pepitas de oro se reparten tantas pepitas como jugadores haya. Si por
+ejemplo han jugado 5 jugadores, se reparten 5 pepitas.
+								</p>
+								<p>
+Los saboteadores ganan si no se alcanza la carta de destino con el tesoro. Si sólo había un saboteador,
+recibe cuatro pepitas de oro. Si había dos o tres saboteadores, cada uno recibe tres pepitas de oro; si
+había cuatro saboteadores, cada uno recibe dos pepitas de oro.
+								</p>
+
+							</div>
+					</div>
+
+
+				</div>
+				
+			</div>
+			<div id="final" class="tab parrafos">
+				
+				El juego termina al final de la tercera ronda. Todos los jugadores cuentan las pepitas de oro que han
+acumulado. El jugador con más pepitas gana la partida. Si hay más de un jugador con el mismo número
+de pepitas, empatan en la primera posición.
+				
+			</div>
+		</div>
+	</div>
+
+
+
+</template>

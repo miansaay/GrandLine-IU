@@ -1,0 +1,76 @@
+
+<template name="saboteur">
+	{{#if currentUser}}
+		{{> tab_board}}
+	{{/if}}
+
+	<div class="total-board" hidden></div>
+
+	<div class="match-board" hidden>
+		<canvas id="canvas"></canvas>
+	</div>
+</template>
+
+
+<template name="tab_board">
+
+	<div class="tab-board">
+		<ul class="tabs">
+			<li class="active"><a href="#tab-matches" data-toggle="tab" class="btn">Partidas</a></li>
+			<li><a href="#tab-mymatches" data-toggle="tab" class="btn">Mis Partidas</a></li>
+			<li><a href="#tab-new" data-toggle="tab" class="btn">Nueva Partida</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="tab-matches">
+				<h3>Partidas disponibles</h3>
+				<div>
+					{{#each match}}
+						<li class="li-matches">
+							{{titulo}}, [{{listaJugadores}}] {{measure}}
+							{{#if userInMatch}}
+								<button type="button" class="unirse-partida"> Unirse a la Partida </button>
+							{{/if}}	
+						</li>
+					{{/each}}
+				</div>	
+			</div>
+			<div class="tab-pane fade" id="tab-mymatches">
+				<div>
+					<h3>Mis Partidas no Empezadas</h3>
+					{{#each mymatch}}
+						<li>
+							{{titulo}}, [{{listaJugadores}}] {{measure}}
+							{{#if startMatch}}
+								<button type="button" class="empezar-partida"> Empezar Partida </button>
+							{{/if}}
+						</li>
+					{{/each}}
+				</div>
+				<div>
+					<h3>Partidas Empezadas</h3>
+					{{#each mystartedMatch}}
+						<li>
+							{{titulo}}, [{{listaJugadores}}] {{measure}}
+							<button type="button" class="entrar-partida"> Jugar </button>
+						</li>
+					{{/each}}
+				</div>	
+			</div>
+			<div class="tab-pane fade" id="tab-new">
+				<h3>Nueva Partida</h3>
+		    	<form>
+		    		<input type="text" name="titulo" placeholder="Title" required />
+		    		<input type="number" name="numJugadores"  min="2" max="10" required />
+		   			<button type="submit"> Crear Partida </button>
+		   		</form>
+		   		<div id="tab-error"></div>
+			</div>
+
+		</div>
+
+	</div>
+</template>
+
+
+
