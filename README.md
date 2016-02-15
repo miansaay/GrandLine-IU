@@ -11,7 +11,7 @@ Sergio Carro Albarrán
 
 Sergio Casas Expósito
 
-Alvaro Grande Chamorro
+Álvaro Grande Chamorro
 
 ## Link del juego
 
