@@ -13,6 +13,6 @@ Sergio Casas Expósito
 
 Alvaro Grande Chamorro
 
-## Link del juego:
+## Link del juego
 
 <a href="https://plataforma2016.meteor.com">Saboteur</a>
